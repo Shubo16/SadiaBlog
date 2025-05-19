@@ -6,6 +6,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import slugify from "slugify";
 
+
 const router = express.Router();
 dotenv.config();
 
@@ -19,11 +20,11 @@ const upload = multer({ dest: path.join(rootDir, "uploads") });
 
 // PostgreSQL connection
 const db = new pg.Client({
-  user: process.env.DB_USER || "postgres",
-  host: process.env.DB_HOST || "localhost",
-  database: process.env.DB_NAME || "Sadia's Blog",
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT || 5432,
+  port: process.env.DB_PORT
 });
 
 db.connect((err) => {
