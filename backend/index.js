@@ -38,7 +38,7 @@ if (!fs.existsSync(uploadsDir)) {
 // Session must come first
 app.use(
   session({
-    secret: "E1925",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false, httpOnly: true, sameSite: "lax" },
