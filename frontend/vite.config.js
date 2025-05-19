@@ -13,5 +13,5 @@ export default defineConfig({
       },
     },
   },
-  base: process.env.VITE_BASE_PATH || "/SadiaBlog"
+  base: process.env.VITE_BASE_PATH || "/"
 })
