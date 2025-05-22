@@ -15,6 +15,7 @@ import avatarRoutes from "./routes/avatar.js";
 import recover from "./routes/recoverBlog.js";
 import comments from "./routes/comments.js";
 import likesRouter from "./routes/likes.js";
+import pool from "./config/db.js";
 // import db from "./config/db.js";
 
 // Load environment variables at the very top
@@ -74,6 +75,21 @@ app.use("/api", comments);
 app.get("/", (req, res) => {
   res.send("Hello from the Node.js backend for Sadia's Blog!");
 });
+
+
+app.get("/health", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT NOW()");
+    res.status(200).json({
+      status: "ok",
+      dbTime: result.rows[0].now,
+    });
+  } catch (err) {
+    res.status(500).json({ status: "error", message: err.message });
+  }
+});
+
+
 
 // Start server
 app.listen(port, () => {
