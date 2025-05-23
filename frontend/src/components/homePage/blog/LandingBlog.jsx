@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import BlogAuthorAvatar from "../../extras/BlogAuthor";
 import { Link } from "react-router-dom";
+import api, { BASE_URL } from "../../../services/backendApi";
 
 export default function LandingBlog() {
   const [blogs, setBlogs] = useState([]);
@@ -10,7 +10,7 @@ export default function LandingBlog() {
   useEffect(() => {
     const getBlogs = async () => {
       try {
-        const response = await axios.get("/api/blog");
+        const response = await api.get("/api/blog");
         const data = response.data;
         setBlogs(data);
 
@@ -44,7 +44,7 @@ export default function LandingBlog() {
         {latestBlog ? (
           <>
             <img
-              src={`http://localhost:3000${latestBlog.image_path}`}
+              src={`${BASE_URL}${latestBlog.image_path}`}
               alt="Blog Cover"
               className="w-full h-[28rem] md:h-[31rem] rounded-2xl border-2 object-cover shadow-lg"
             />

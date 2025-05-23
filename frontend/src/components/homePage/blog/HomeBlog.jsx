@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BlogCard from "./BlogCard";
 import LandingBlog from "./LandingBlog";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import api from "../../../services/backendApi";
 
 function HomeBlog() {
   const [blogs, setBlogs] = useState([]);
@@ -12,7 +12,7 @@ function HomeBlog() {
   useEffect(() => {
     const getBlogs = async () => {
       try {
-        const response = await axios.get("/api/blog");
+        const response = await api.get("/api/blog");
         const data = response.data;
 
         // Only keep the latest 3 blogs

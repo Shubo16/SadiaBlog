@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import BlogAuthorAvatar from "../../extras/BlogAuthor";
+import { BASE_URL } from "../../../services/backendApi";
 
 function BlogCard({
   id,
@@ -13,7 +14,6 @@ function BlogCard({
   avatar_url,
   username,
 }) {
-  
   const formattedDate = date_created
     ? new Date(date_created).toLocaleDateString()
     : "Unknown date";
@@ -23,10 +23,12 @@ function BlogCard({
       key={id}
       className="group overflow-hidden rounded-lg border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300 capitalize"
     >
-      <Link to={`/blog/${slug}`}> {/* Use slug directly */}
+      <Link to={`/blog/${slug}`}>
+        {" "}
+        {/* Use slug directly */}
         <img
           className="w-full h-48 object-cover object-center transition-transform duration-300 group-hover:scale-105"
-          src={`http://localhost:3000${image_path}`}
+          src={`${BASE_URL}${image_path}`}
           alt={title}
         />
       </Link>
@@ -44,7 +46,7 @@ function BlogCard({
       </span>
       {username && (
         <div className="flex items-center px-6 pb-4 gap-4">
-          <BlogAuthorAvatar src={avatar_url}/>
+          <BlogAuthorAvatar src={avatar_url} />
           <p className="text-md font-semibold capitalize text-gray-700">
             {username}
           </p>

@@ -73,21 +73,21 @@ app.use("/api", comments);
 
 // Root Route
 app.get("/", (req, res) => {
-  res.send("Hello from the Node.js backend for Sadia's Blog!");
+  res.send("Hello from the Node.js backend for Sadia's Blog using render!");
 });
 
 
-app.get("/health", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT NOW()");
-    res.status(200).json({
-      status: "ok",
-      dbTime: result.rows[0].now,
-    });
-  } catch (err) {
-    res.status(500).json({ status: "error", message: err.message });
-  }
-});
+// app.get("/health", async (req, res) => {
+//   try {
+//     const result = await pool.query("SELECT NOW()");
+//     res.status(200).json({
+//       status: "ok",
+//       dbTime: result.rows[0].now,
+//     });
+//   } catch (err) {
+//     res.status(500).json({ status: "error", message: err.message });
+//   }
+// });
 
 
 
