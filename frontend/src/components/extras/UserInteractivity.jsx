@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaRegComment, FaHeart, FaRegHeart } from "react-icons/fa";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import api from "../../services/backendApi";
 
 export default function UserInteractivity({id}) {
   const { slug } = useParams();
@@ -11,7 +12,7 @@ export default function UserInteractivity({id}) {
   useEffect(() => {
     const fetchLikes = async () => {
       try {
-        const response = await axios.get(
+        const response = await api.get(
           `/api/likes/${slug}`
         );
         setLikeCount(response.data.count);

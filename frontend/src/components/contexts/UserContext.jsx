@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
-
+import api from "../../services/backendApi";
 const UserContext = createContext();
 
 export const useUser = () => useContext(UserContext);
@@ -12,7 +11,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/user", {
+        const res = await api.get("/api/user", {
           withCredentials: true,
         });
         console.log("Fetched user data:", res.data); // Directly log the response

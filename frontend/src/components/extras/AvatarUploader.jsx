@@ -15,8 +15,8 @@ function AvatarUploader() {
 
     try {
       setUploading(true);
-      const res = await axios.post(
-        `http://localhost:3000/api/upload-avatar/${user.id}`,
+      const res = await api.post(
+        `/api/upload-avatar/${user.id}`,
         formData,
         {
           headers: {
