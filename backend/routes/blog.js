@@ -1,5 +1,5 @@
 import express from "express";
-import pool from "../config/db";
+import pool from "../config/db.js";
 import dotenv from "dotenv";
 import multer from "multer";
 import path from "path";
