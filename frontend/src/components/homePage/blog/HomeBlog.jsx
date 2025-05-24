@@ -17,6 +17,7 @@ function HomeBlog() {
 
         // Only keep the latest 3 blogs
         setBlogs(data.slice(0, 3));
+        console.log("Fetched blogs:", data.slice(0, 3));
       } catch (err) {
         setError("Error fetching blogs. Please try again later.");
         console.error("Error fetching blogs:", err);

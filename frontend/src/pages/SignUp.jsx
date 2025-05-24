@@ -3,6 +3,7 @@ import { Headerbackgroundimg } from "../services/randomPicGenerator";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api, { BASE_URL } from "../services/backendApi";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -29,8 +30,8 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/signup", // Ensure the correct route
+      const response = await api.post(
+        `${BASE_URL}/api/signup`, // Ensure the correct route
         {
           firstName,
           lastName,
