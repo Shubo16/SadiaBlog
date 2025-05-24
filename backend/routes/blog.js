@@ -187,16 +187,16 @@ router.post("/blog/archive/:id", async (req, res) => {
   }
 });
 
-router.get("/blog", async (req, res) => {
-  console.log("GET /api/blog called");
-  try {
-    const result = await pool.query("SELECT 1");
-    console.log("pool test query success:", result.rows);
-    // Then do your real query here
-    // ...
-  } catch (err) {
-    console.error(err);
-  }
-});
+// router.get("/blog", async (req, res) => {
+//   console.log("GET /api/blog called");
+//   try {
+//     const result = await pool.query("SELECT 1");
+//     console.log("pool test query success:", result.rows);
+//     // Then do your real query here
+//     // ...
+//   } catch (err) {
+//     console.error(err);
+//   }
+// });
 
 export default router;

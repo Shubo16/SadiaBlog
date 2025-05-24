@@ -77,17 +77,15 @@ app.get("/", (req, res) => {
 });
 
 
-app.get("/health", async (req, res) => {
+app.get("/debug-blog", async (req, res) => {
   try {
-    const result = await pool.query("SELECT NOW()");
-    res.status(200).json({
-      status: "ok",
-      dbTime: result.rows[0].now,
-    });
+    const result = await pool.query("SELECT * FROM blog LIMIT 1");
+    res.status(200).json({ status: "ok", sampleBlog: result.rows[0] });
   } catch (err) {
     res.status(500).json({ status: "error", message: err.message });
   }
 });
+
 
 
 
