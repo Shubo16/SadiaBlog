@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { errorLogin } from "../components/extras/alerts";
+import api, { BASE_URL } from "../services/backendApi";
 
 const Login = () => {
   const navigate = useNavigate("/");
@@ -27,8 +28,8 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/login/password",
+      const response = await api.post(
+        `/api/login/password`,
         { email, password },
 
         {
