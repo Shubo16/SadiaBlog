@@ -18,13 +18,13 @@ const rootDir = path.join(__dirname, "..");
 const upload = multer({ dest: path.join(rootDir, "uploads") });
 
 
-pool.connect((err) => {
-  if (err) {
-    console.error("Failed to connect to the database:", err.stack);
-  } else {
-    console.log("Connected to database successfully!");
-  }
-});
+// pool.connect((err) => {
+//   if (err) {
+//     console.error("Failed to connect to the database:", err.stack);
+//   } else {
+//     console.log("Connected to database successfully!");
+//   }
+// });
 
 // Fetch all blogs for landing page or other use-cases
 router.get("/blog", async (req, res) => {

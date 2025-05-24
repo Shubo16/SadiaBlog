@@ -16,7 +16,7 @@ import recover from "./routes/recoverBlog.js";
 import comments from "./routes/comments.js";
 import likesRouter from "./routes/likes.js";
 import pool from "./config/db.js";
-// import db from "./config/db.js";
+
 
 // Load environment variables at the very top
 dotenv.config();
@@ -77,17 +77,17 @@ app.get("/", (req, res) => {
 });
 
 
-// app.get("/health", async (req, res) => {
-//   try {
-//     const result = await pool.query("SELECT NOW()");
-//     res.status(200).json({
-//       status: "ok",
-//       dbTime: result.rows[0].now,
-//     });
-//   } catch (err) {
-//     res.status(500).json({ status: "error", message: err.message });
-//   }
-// });
+app.get("/health", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT NOW()");
+    res.status(200).json({
+      status: "ok",
+      dbTime: result.rows[0].now,
+    });
+  } catch (err) {
+    res.status(500).json({ status: "error", message: err.message });
+  }
+});
 
 
 

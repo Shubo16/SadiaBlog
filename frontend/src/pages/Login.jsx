@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Headerbackgroundimg } from "../services/randomPicGenerator";
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 import { errorLogin } from "../components/extras/alerts";
-import api, { BASE_URL } from "../services/backendApi";
+import api from "../services/backendApi";
 
 const Login = () => {
   const navigate = useNavigate("/");
