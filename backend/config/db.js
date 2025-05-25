@@ -4,6 +4,7 @@ dotenv.config();
 
 const { Pool } = pkg;
 
+
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
@@ -15,6 +16,10 @@ const pool = new Pool({
   },
 });
 
+const res = await pool.query('SELECT current_database();');
+console.log("Currently connected to:", res.rows[0].current_database);
+
+
 pool.query("SELECT NOW()", (err, res) => {
   if (err) {
     console.error("❌ Failed to connect to the database:", err);
@@ -23,14 +28,7 @@ pool.query("SELECT NOW()", (err, res) => {
   }
 });
 
-app.get("/debug-db", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT * FROM blog LIMIT 1");
-    res.json({ ok: true, blog: result.rows[0] || "No blog data" });
-  } catch (err) {
-    res.status(500).json({ ok: false, error: err.message });
-  }
-});
+
 
 
 export default pool;
