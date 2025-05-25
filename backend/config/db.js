@@ -23,4 +23,14 @@ pool.query("SELECT NOW()", (err, res) => {
   }
 });
 
+app.get("/debug-db", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM blog LIMIT 1");
+    res.json({ ok: true, blog: result.rows[0] || "No blog data" });
+  } catch (err) {
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+
 export default pool;
