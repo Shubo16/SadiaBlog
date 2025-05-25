@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import BlogAuthorAvatar from "../../extras/BlogAuthor";
-import { FaArrowLeft, FaParagraph } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import UserInteractivity from "../../extras/UserInteractivity";
 import { Link } from "react-router-dom";
 import HomeBlog from "../../homePage/blog/HomeBlog";
