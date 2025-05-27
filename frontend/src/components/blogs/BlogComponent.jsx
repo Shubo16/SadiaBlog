@@ -36,8 +36,6 @@ const BlogComponent = ({ toggleRefresh }) => {
     const getBlogs = async () => {
       try {
         const response = await api.get("/api/blog/");
-        if (!response.ok)
-          throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         setBlogs(data);
       } catch (err) {
