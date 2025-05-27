@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import BlogAuthorAvatar from "../../extras/BlogAuthor";
-import { FaArrowLeft } from "react-icons/fa";
+// import { FaArrowLeft } from "react-icons/fa";
 import UserInteractivity from "../../extras/UserInteractivity";
 import { Link } from "react-router-dom";
 import HomeBlog from "../../homePage/blog/HomeBlog";
 import CommentSection from "./CommentSection";
+import api from "../../../services/backendApi";
 
 function BlogContentsPage() {
   const { slug } = useParams();
@@ -17,7 +18,7 @@ function BlogContentsPage() {
   useEffect(() => {
     const getBlog = async () => {
       try {
-        const response = await axios.get(`/api/blog/${slug}`);
+        const response = await api.get(`/api/blog/${slug}`);
         const data = response.data;
         setCurrentBlog(data);
         console.log(currentBlog);

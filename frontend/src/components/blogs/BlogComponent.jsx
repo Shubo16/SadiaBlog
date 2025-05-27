@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
 import { Link } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
-import axios from "axios";
 import { BlogHeaderPic } from "../../services/randomPicGenerator";
 import BlogAuthorAvatar from "../extras/BlogAuthor";
 import { errorDeletingBlog, successfullyDeletedBlog } from "../extras/alerts";
 import { FaComment, FaThumbsUp } from "react-icons/fa";
+import api, { BASE_URL } from "../../services/backendApi";
 
 const BlogComponent = ({ toggleRefresh }) => {
   const { user } = useUser();
@@ -25,7 +25,7 @@ const BlogComponent = ({ toggleRefresh }) => {
 
   useEffect(() => {
     const fetchFallbackImage = async () => {
-      const fallback = await axios.get(BlogHeaderPic);
+      const fallback = await api.get(BlogHeaderPic);
       setFallBackImage(fallback[0]);
     };
 
@@ -35,7 +35,7 @@ const BlogComponent = ({ toggleRefresh }) => {
   useEffect(() => {
     const getBlogs = async () => {
       try {
-        const response = await fetch("/api/blog/");
+        const response = await api.get("/api/blog/");
         if (!response.ok)
           throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
@@ -56,9 +56,9 @@ const BlogComponent = ({ toggleRefresh }) => {
     }));
   };
 
-  const archiveBlog = async (id) => {
+  const handleArchiveBlog = async (id) => {
     try {
-      await axios.post(`/api/blog/archive/${id}`);
+      await api.post(`/api/blog/archive/${id}`);
       setBlogs((prevBlog) => prevBlog.filter((blog) => blog.id !== id));
       successfullyDeletedBlog();
     } catch (err) {
@@ -94,7 +94,7 @@ const BlogComponent = ({ toggleRefresh }) => {
                     className="w-full h-48 object-cover object-center transition-transform duration-300 group-hover:scale-105"
                     src={
                       blog.image_path
-                        ? `http://localhost:3000${blog.image_path}`
+                        ? `${BASE_URL}${blog.image_path}`
                         : fallbackImage
                     }
                     alt={blog.title}
@@ -168,7 +168,7 @@ const BlogComponent = ({ toggleRefresh }) => {
                             </button>
                             <button
                               type="button"
-                              onClick={() => archiveBlog(blog.id)}
+                              onClick={() => handleArchiveBlog(blog.id)}
                               className="block w-full px-4 py-2 text-center text-gray-700 active:bg-red-100 hover:bg-jadeGreen"
                             >
                               Archive

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { SlOptionsVertical } from "react-icons/sl";
+import api from "../../../services/backendApi";
+
 
 export default function CommentSection({ id }) {
   const { slug } = useParams();
@@ -15,7 +16,7 @@ export default function CommentSection({ id }) {
   useEffect(() => {
     const fetchLoggedInUser = async () => {
       try {
-        const res = await axios.get("/api/user", { withCredentials: true });
+        const res = await api.get("/api/user", { withCredentials: true });
         setCurrentUser(res.data);
       } catch (err) {
         console.error("Not logged in:", err);
@@ -27,7 +28,7 @@ export default function CommentSection({ id }) {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const results = await axios.get(`/api/comments/${slug}`);
+        const results = await api.get(`/api/comments/${slug}`);
         const commentsArray = Array.isArray(results.data)
           ? results.data
           : results.data.comments || [];
@@ -44,7 +45,7 @@ export default function CommentSection({ id }) {
   const postComment = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/api/comments/${slug}`, {
+      const response = await api.post(`/api/comments/${slug}`, {
         comment: newComment,
       });
       const newCommentPosted = response.data.comment;
@@ -58,7 +59,7 @@ export default function CommentSection({ id }) {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      await axios.delete(`/api/comments/${commentId}`);
+      await api.delete(`/api/comments/${commentId}`);
       setAllComments((prev) => prev.filter((c) => c.id !== commentId));
     } catch (error) {
       console.error("Failed to delete comment:", error);

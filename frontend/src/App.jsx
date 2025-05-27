@@ -9,7 +9,7 @@ import SignUp from "./pages/SignUp";
 import { AnimatePresence, motion } from "framer-motion";
 import BlogContentsPage from "./components/blogs/blogPage/BlogContentsPage";
 import MyAccount from "./pages/MyAccount";
-import { Slide, ToastContainer, Zoom } from "react-toastify";
+import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/extras/Footer";
 
