@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const BASE_URL = "https://sadiablog.onrender.com";
+export const BASE_URL = "c";
 
 const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL,
   withCredentials:true
   // ...other configs
 });

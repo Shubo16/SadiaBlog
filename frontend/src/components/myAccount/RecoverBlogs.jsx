@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useUser } from "../contexts/UserContext";
-import BlogComponent from "../blogs/BlogComponent";
 
 export default function ArchivedBlogs() {
   const { user } = useUser();
@@ -12,7 +10,7 @@ export default function ArchivedBlogs() {
   useEffect(() => {
     const getArchivedBlogs = async () => {
       try {
-        const response = await axios.get("/api/recover-blog");
+        const response = await api.get("/api/recover-blog");
         console.log("API response:", response.data);
         setBlogs(response.data);
       } catch (err) {

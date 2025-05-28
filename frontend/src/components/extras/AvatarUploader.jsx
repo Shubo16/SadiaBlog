@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../services/backendApi";
 import { useUser } from "../contexts/UserContext";
 
 function AvatarUploader() {
@@ -15,16 +15,12 @@ function AvatarUploader() {
 
     try {
       setUploading(true);
-      const res = await api.post(
-        `/api/upload-avatar/${user.id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
-      );
+      const res = await api.post(`/api/upload-avatar/${user.id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
 
       setUser((prev) => ({ ...prev, avatar_url: res.data.imageUrl }));
     } catch (err) {

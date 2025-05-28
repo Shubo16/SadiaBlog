@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { FaRegComment, FaHeart, FaRegHeart } from "react-icons/fa";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import api from "../../services/backendApi";
 
@@ -27,7 +26,7 @@ export default function UserInteractivity({id}) {
   const handleLike = async () => {
     try {
       console.log("liking blog with slug:", slug);
-      const response = await axios.post(
+      const response = await api.post(
         `/api/likes/${encodeURIComponent(slug)}`
       );
       setLikeCount(response.data.count);
@@ -39,7 +38,7 @@ export default function UserInteractivity({id}) {
 
   const handleUnlike = async () => {
     try {
-      const response = await axios.delete(
+      const response = await api.delete(
         `/api/likes/${encodeURIComponent(slug)}`
       );
       setLikeCount(response.data.count);

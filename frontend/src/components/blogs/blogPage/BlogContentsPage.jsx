@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import BlogAuthorAvatar from "../../extras/BlogAuthor";
-// import { FaArrowLeft } from "react-icons/fa";
 import UserInteractivity from "../../extras/UserInteractivity";
 import { Link } from "react-router-dom";
 import HomeBlog from "../../homePage/blog/HomeBlog";
 import CommentSection from "./CommentSection";
-import api from "../../../services/backendApi";
+import api, { BASE_URL } from "../../../services/backendApi";
 
 function BlogContentsPage() {
   const { slug } = useParams();
@@ -76,13 +74,13 @@ function BlogContentsPage() {
     <div className="h-auto w-auto flex flex-col items-center">
       <Link to="/Blogs">
         <span className="absolute hover:text-jadeGreen left-5 mt-3 w-auto flex items-center gap-1 xs:border-0 ss:border-b-2 border-black capitalize">
-          <FaArrowLeft className="" />
+          {/* <FaArrowLeft className="" /> */}
           <h3 className="hidden ss:inline">Back to all blogs</h3>
         </span>
       </Link>
       {/* article image */}
       <img
-        src={`http://localhost:3000${currentBlog.image_path}`}
+        src={`${BASE_URL}${currentBlog.image_path}`}
         alt={currentBlog.title}
         className="w-auto h-96 my-10 rounded-lg shadow-lg"
       />

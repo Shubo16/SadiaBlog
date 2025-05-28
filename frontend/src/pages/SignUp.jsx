@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Headerbackgroundimg } from "../services/randomPicGenerator";
 import { ToastContainer, toast } from "react-toastify";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import api, { BASE_URL } from "../services/backendApi";
 

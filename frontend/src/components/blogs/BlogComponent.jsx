@@ -36,7 +36,7 @@ const BlogComponent = ({ toggleRefresh }) => {
     const getBlogs = async () => {
       try {
         const response = await api.get("/api/blog/");
-        setBlogs(response.data); // ✅ Axios puts the parsed JSON in `data`
+        setBlogs(response.data); 
       } catch (err) {
         console.error("Error fetching blogs:", err);
         setError("Cannot load blogs. Please try again later.");

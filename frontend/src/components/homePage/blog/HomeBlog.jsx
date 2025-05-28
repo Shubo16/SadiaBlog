@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import BlogCard from "./BlogCard";
-import LandingBlog from "./LandingBlog";
 import { Link } from "react-router-dom";
 import api from "../../../services/backendApi";
 

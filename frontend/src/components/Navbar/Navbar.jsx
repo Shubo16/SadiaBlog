@@ -3,6 +3,7 @@ import { useCycle, motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext"; // adjust path if needed
 import AvatarUploader from "../extras/AvatarUploader";
+import api from "../../services/backendApi";
 
 function MobileHeader() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function MobileHeader() {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch("/api/logout", {
+      const res = await api.get("/api/logout", {
         method: "POST",
         credentials: "include",
       });
