@@ -11,9 +11,10 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await api.get("/api/user", {
+        const res = await api.get("/api/auth/user", {
           withCredentials: true,
         });
+        console.log("User:", req.user);
         console.log("Fetched user data:", res.data); // Directly log the response
         setUser(res.data);
       } catch (err) {
