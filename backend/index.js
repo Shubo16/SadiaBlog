@@ -58,7 +58,7 @@ app.use(passport.session());
 // Then CORS, JSON parsing, static files, etc.
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://sadiablog.onrender.com"],
+    origin: [process.env.BASE_URL_FRONTEND, process.env.BASE_URL],
     credentials: true,
   })
 );
