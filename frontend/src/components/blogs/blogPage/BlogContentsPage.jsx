@@ -143,7 +143,7 @@ function BlogContentsPage() {
             Leave a comment
           </a>
         </span>
-        <p className="text-xl text-center px-28  break-words mb-10">
+        <p className="text-lg md:text-xl text-center  p-0 md:px-28  break-words mb-10">
           Thanks for reading my blog! Like, leave a comment and share, let me
           know how you feel and check out some of my other blogs that i've
           posted down below.
