@@ -56,9 +56,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Then CORS, JSON parsing, static files, etc.
+const allowedOrigins = [
+  process.env.BASE_URL_FRONTEND,
+  process.env.BASE_URL,
+].filter(Boolean); // Remove any undefined
+
 app.use(
   cors({
-    origin: [process.env.BASE_URL_FRONTEND, process.env.BASE_URL],
+    origin: allowedOrigins,
     credentials: true,
   })
 );
