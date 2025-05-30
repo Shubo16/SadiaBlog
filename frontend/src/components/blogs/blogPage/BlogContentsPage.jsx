@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import HomeBlog from "../../homePage/blog/HomeBlog";
 import CommentSection from "./CommentSection";
 import api, { BASE_URL } from "../../../services/backendApi";
-
+import { FaArrowLeft } from "react-icons/fa";
 
 function BlogContentsPage() {
   const { slug } = useParams();
@@ -75,6 +75,7 @@ function BlogContentsPage() {
     <div className="h-auto w-auto flex flex-col items-center">
       <Link to="/Blogs">
         <span className="absolute hover:text-jadeGreen left-5 mt-3 w-auto flex items-center gap-1 xs:border-0 ss:border-b-2 border-black capitalize">
+          <FaArrowLeft />
           <h3 className="hidden ss:inline">Back to all blogs</h3>
         </span>
       </Link>
@@ -119,7 +120,10 @@ function BlogContentsPage() {
 
         {/* Article content */}
         {currentBlog.content.split("\n").map((paragraph, index) => (
-          <p key={index} className="prose text-xl/9 lg:text-2xl/9 max-w-none mb-10">
+          <p
+            key={index}
+            className="prose text-xl/9 lg:text-2xl/9 max-w-none mb-10"
+          >
             {paragraph}
           </p>
         ))}
