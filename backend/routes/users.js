@@ -1,45 +1,53 @@
 import express from "express";
 import passport from "passport";
+import pool from "../config/db.js"; // ✅ Make sure to import your DB connection
 
 const router = express.Router();
 
-// 👇 New route to get the currently logged-in user
+// ✅ Route to get the currently logged-in user
 router.get("/user", (req, res) => {
-  console.log(req.session); // Add this to see the session object
+  console.log("User:", req.user);
+  console.log("Session:", req.session);
+
   if (req.isAuthenticated()) {
-    res.json(req.user); // This should return user data if logged in
+    res.json(req.user);
   } else {
-    res.status(401).json({ user: null, message: "not autheticated" });
+    res.status(401).json({ user: null, message: "Not authenticated" });
   }
 });
 
-// PUT /api/user/:id/avatar
+// ✅ PUT /api/user/:id/avatar - Update avatar
 router.put("/user/:id/avatar", async (req, res) => {
   const { id } = req.params;
   const { imageUrl } = req.body;
 
   try {
     const result = await pool.query(
-      'UPDATE users SET name = $1, email = $2 WHERE id = $3',
+      "UPDATE users SET name = $1, email = $2, avatar = $3 WHERE id = $2 RETURNING *",
       [name, email, imageUrl, id]
     );
 
-    res.json(result.rows[0]); // Send back the updated user
+    res.json(result.rows[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to update avatar" });
   }
 });
 
-//editing user name and info
-
+// ✅ PUT /api/user/:id - Update name and email
 router.put("/user/:id", async (req, res) => {
   const { id } = req.params;
+  const { name, email } = req.body;
+
   try {
-    ("UPDATE users SET name = $1,email = $2");
+    const result = await pool.query(
+      "UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *",
+      [name, email, id]
+    );
+    res.json(result.rows[0]);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Failed to update name" });
+    console.error(error);
+    res.status(500).json({ error: "Failed to update user info" });
   }
 });
 

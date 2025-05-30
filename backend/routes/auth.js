@@ -3,7 +3,7 @@ import express from "express";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { hashPassword, comparePassword } from "../utilities/authUtilities.js";
-import pool from "../config/db.js"; // Removed duplicate db import
+import pool from "../config/db.js";
 
 dotenv.config();
 const router = express.Router();
@@ -94,6 +94,9 @@ router.post("/signup", async (req, res) => {
 router.get("/login", async (req,res) => {
   res.json("Login page")
 })
+
+
+
 router.post("/login/password", (req, res, next) => {
   console.log("🔵 Backend received login request with body", req.body);
 

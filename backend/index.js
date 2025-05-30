@@ -17,13 +17,11 @@ import comments from "./routes/comments.js";
 import likesRouter from "./routes/likes.js";
 import pool from "./config/db.js";
 
-
 // Load environment variables at the very top
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-
 
 // Resolve __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -37,12 +35,19 @@ if (!fs.existsSync(uploadsDir)) {
 
 // Middleware
 // Session must come first
+app.set("trust proxy", 1); // 🟢 Required for secure cookies on Render or behind any proxy
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, httpOnly: true, sameSite: "lax" },
+    cookie: {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // true on Render
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+    },
   })
 );
 
@@ -53,10 +58,11 @@ app.use(passport.session());
 // Then CORS, JSON parsing, static files, etc.
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://sadiablog.onrender.com"],
     credentials: true,
   })
 );
+
 app.use(express.json()); // Ensure JSON parsing works
 app.use(express.urlencoded({ extended: true })); // Handles form data properly
 app.use(express.static("public"));
@@ -66,7 +72,7 @@ app.use("/uploads", express.static(uploadsDir)); // Serve uploads
 app.use("/api", userRoutes);
 app.use("/api", blog);
 app.use("/api", authRoutes);
-app.use("/api", avatarRoutes)
+app.use("/api", avatarRoutes);
 app.use("/api", recover);
 app.use("/api", likesRouter);
 app.use("/api", comments);
@@ -74,16 +80,6 @@ app.use("/api", comments);
 // Root Route
 app.get("/", (req, res) => {
   res.send("Hello from the Node.js backend for Sadia's Blog using render!");
-});
-
-
-app.get("/debug-blog", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT * FROM blog LIMIT 1");
-    res.status(200).json({ status: "ok", sampleBlog: result.rows[0] });
-  } catch (err) {
-    res.status(500).json({ status: "error", message: err.message });
-  }
 });
 
 app.get("/debug-db", async (req, res) => {
@@ -94,8 +90,6 @@ app.get("/debug-db", async (req, res) => {
     res.status(500).json({ ok: false, error: err.message });
   }
 });
-
-
 
 // Start server
 app.listen(port, () => {

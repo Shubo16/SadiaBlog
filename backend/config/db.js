@@ -5,16 +5,18 @@ dotenv.config();
 const { Pool } = pkg;
 
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: Number(process.env.DB_PORT),
-  ssl: {
-    rejectUnauthorized: false,  // This disables strict SSL cert validation, needed for Render Postgres
-  },
+  user: isProduction ? process.env.ONREDER_DB_USER : process.env.LOCAL_DB_USER,
+  host: isProduction ? process.env.ONREDER_DB_HOST : process.env.LOCAL_DB_HOST,
+  database: isProduction ? process.env.ONREDER_DB_NAME : process.env.LOCAL_DB_NAME,
+  password: isProduction ? process.env.ONREDER_DB_PASSWORD : process.env.LOCAL_DB_PASSWORD,
+  port: Number(isProduction ? process.env.ONREDER_DB_PORT : process.env.LOCAL_DB_PORT),
+  ssl: isProduction ? { rejectUnauthorized: false } : false,
 });
+
+
 
 const res = await pool.query('SELECT current_database();');
 console.log("Currently connected to:", res.rows[0].current_database);
