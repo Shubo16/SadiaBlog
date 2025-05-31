@@ -40,14 +40,16 @@ export default function LandingBlog() {
 
   return (
     <div className="flex justify-center px-4 mb-10">
-      <section className="w-full max-w-screen-lg h-auto grid gap-10 pt-8 lg:grid-cols-2">
+      <section className="w-full max-w-screen-lg h-auto grid gap-10 pt-8 lg:grid-cols-2 md:px-24 lg:px-0">
         {latestBlog ? (
           <>
-            <img
-              src={`${BASE_URL}${latestBlog.image_path}`}
-              alt="Blog Cover"
-              className="w-full h-[28rem] md:h-[31rem] rounded-2xl border-2 object-cover shadow-lg"
-            />
+            <div className="md:flex md:justify-center">
+              <img
+                src={`${BASE_URL}${latestBlog.image_path}`}
+                alt="Blog Cover"
+                className="w-full h-[23rem] md:h-[22rem] md:w-2/3 lg:w-full rounded-2xl border-2 object-cover shadow-lg"
+              />
+            </div>
 
             <div className="flex flex-col">
               <ul className="flex w-full flex-col-reverse  md:gap-9 text-xl font-semibold text-gray-600 mb-2 capitalize md:flex-row lg:justify-between md:items-center">
@@ -68,7 +70,9 @@ export default function LandingBlog() {
                 </h3>
 
                 <div className="flex justify-center md:justify-end">
-                  <Link to={`/blog/${latestBlog.slug}`}> {/* Updated Link */}
+                  <Link to={`/blog/${latestBlog.slug}`}>
+                    {" "}
+                    {/* Updated Link */}
                     <button className="text-lg group relative inline-flex h-12 w-60 items-center justify-center overflow-hidden rounded-md border-4 border-black bg-transparent font-medium text-jadeGreen transition-all duration-150 shadow-[5px_5px_rgb(82_82_82)] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none uppercase hover:bg-jadeGreen hover:text-white">
                       continue reading
                     </button>
