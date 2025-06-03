@@ -40,27 +40,27 @@ export const NewsLetter = () => {
   return (
     <main className="w-full px-4 py-8 flex flex-col items-center bg-white border-t-4 border-black">
       <div className="text-center mb-4 text-sm font-bold font-poppins">
-        <h2 className="capitalize">Be the first to access new blogs</h2>
-        <h3 className="italic font-tinos">Sign up for our newsletter!</h3>
+        <h2 className="capitalize text-lg">Be the first to access new blogs</h2>
+        <h3 className="italic font-tinos text-base">Sign up for our newsletter!</h3>
       </div>
 
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md flex flex-col gap-4"
+        className="w-full max-w-md flex flex-col gap-4 "
       >
-        <label className="flex flex-col items-start gap-1 text-sm">
+        <label className="flex flex-col items-start gap-1 text-base">
           Full Name:
           <input
             type="text"
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            className="w-full rounded-md p-2 border-b-4 border-jadeGreen placeholder-black outline-none"
+            className="w-full rounded-md p-2 border-b-4 border-jadeGreen placeholder-black outline-none "
             placeholder="Enter your full name"
           />
         </label>
 
-        <label className="flex flex-col items-start gap-1 text-sm">
+        <label className="flex flex-col items-start gap-1 text-base">
           Email:
           <input
             type="email"
@@ -76,7 +76,7 @@ export const NewsLetter = () => {
           type="submit"
           className="bg-jadeGreen text-white rounded-md py-2 px-6 hover:bg-green-700 transition"
         >
-          Subscribe :)
+          Subscribe
         </button>
       </form>
     </main>

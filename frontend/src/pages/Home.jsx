@@ -1,5 +1,6 @@
 import HomeBlog from "../components/homePage/blog/HomeBlog";
 import LandingBlog from "../components/homePage/blog/LandingBlog";
+import Charity from "../components/homePage/donation/Charity";
 import { NewsLetter } from "../components/homePage/Newsletter";
 
 function Home() {
@@ -7,6 +8,7 @@ function Home() {
     <>
     <LandingBlog/>
       <HomeBlog />
+      <Charity/>
       <NewsLetter />
     </>
   );

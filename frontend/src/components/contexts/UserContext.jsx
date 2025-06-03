@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await api.get("/api/auth/user", {
+        const res = await api.get("/api/user", {
           withCredentials: true,
         });
         console.log("User:", req.user);
