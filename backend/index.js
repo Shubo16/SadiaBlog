@@ -44,8 +44,8 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // true on Render
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: process.env.SECURE_COOKIES === 'true', // Use a specific env var
+      sameSite: process.env.SECURE_COOKIES === 'true' ? "none" : "lax", // sameSite="none" requires secure:true
       maxAge: 1000 * 60 * 60 * 24, // 1 day
     },
   })
@@ -89,7 +89,7 @@ app.get("/", (req, res) => {
 
 app.get("/debug-db", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM blog LIMIT 1");
+    const result = await pool.query("SELECT * FROM users LIMIT 1");
     res.json({ ok: true, blog: result.rows[0] || "No blog data" });
   } catch (err) {
     res.status(500).json({ ok: false, error: err.message });
