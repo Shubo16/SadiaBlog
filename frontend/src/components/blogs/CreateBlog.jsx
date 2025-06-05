@@ -46,22 +46,27 @@ const CreateBlog = ({ onBlogCreated }) => {
       const response = await fetch("/api/blog", {
         method: "POST",
         body: formData,
-        credentials:'include',
+        credentials: "include",
       });
 
-      const jsonResponse = await response.json();
-      console.log("Server response:", jsonResponse);
+      let jsonResponse;
+      const contentType = response.headers.get("content-type");
+
+      if (contentType && contentType.includes("application/json")) {
+        jsonResponse = await response.json();
+      } else {
+        const text = await response.text();
+        throw new Error(`Unexpected response: ${text}`);
+      }
 
       if (!response.ok) {
         throw new Error(jsonResponse.error || "Something went wrong");
       }
 
       successFullyCreatedBlog();
-      toggleNewBlog(); // Close the modal
+      toggleNewBlog();
       if (onBlogCreated) onBlogCreated();
 
-      // ✅ Tell the parent to refresh the blog list:
-      if (onBlogCreated) onBlogCreated();
       setBlogData({
         title: "",
         category: "",
@@ -71,7 +76,7 @@ const CreateBlog = ({ onBlogCreated }) => {
       setFile(null);
     } catch (error) {
       console.error("There has been an error", error);
-      toast.error("There was an issue creating the blog. Please try again.", {
+      toast.error(error.message || "There was an issue creating the blog.", {
         position: "top-right",
         autoClose: 3000,
         theme: "light",
