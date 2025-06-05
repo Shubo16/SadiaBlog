@@ -1,27 +1,24 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../../services/backendApi";
-const UserContext = createContext();
 
+const UserContext = createContext();
 export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // NEW
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await api.get("/api/user", {
-          withCredentials: true,
-        });
-        console.log("User:", req.user);
-        console.log("Fetched user data:", res.data); // Directly log the response
+        const res = await api.get("/api/user", { withCredentials: true });
+        console.log("✅ Fetched user data:", res.data);
         setUser(res.data);
       } catch (err) {
-        console.error("Error fetching user:", err);
-        setUser(false); // means guest
+        console.error("❌ Error fetching user:", err);
+        setUser(false); // unauthenticated/guest
       } finally {
-        setLoading(false); // done loading regardless
+        setLoading(false);
       }
     };
 

@@ -6,7 +6,7 @@ import { errorLogin } from "../components/extras/alerts";
 import api from "../services/backendApi";
 
 const Login = () => {
-  const navigate = useNavigate("/");
+  const navigate = useNavigate();
   const [backgroundImage, setBackgroundImage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
