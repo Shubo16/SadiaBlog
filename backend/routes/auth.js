@@ -144,7 +144,7 @@ router.get("/status", (req, res) => {
   }
 });
 
-console.log("⚠️ /debug-session route loaded");
+console.log("/debug-session route loaded");
 
 router.get("/debug-session", (req, res) => {
   res.json({

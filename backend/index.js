@@ -59,6 +59,7 @@ app.use(passport.session());
 const allowedOrigins = [
   process.env.BASE_URL_FRONTEND,
   process.env.BASE_URL,
+  process.env.LATEST_DEPLOYMENT_URL_FRONTEND
 ].filter(Boolean); // Remove any undefined
 
 app.use(
