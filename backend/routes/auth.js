@@ -115,7 +115,7 @@ router.post("/login/password", (req, res, next) => {
         console.error("⚠️ Login error:", err);
         return res.status(500).json({ error: "Login failed" });
       }
-      console.log("✅ Login successful:", user.email);
+      console.log("🔐 Session after login:", req.session); // Add this
       return res.status(200).json({ message: "Login successful", user });
     });
   })(req, res, next);
