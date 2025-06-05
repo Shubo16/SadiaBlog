@@ -61,6 +61,9 @@ const allowedOrigins = [
   process.env.LATEST_DEPLOYMENT_URL_FRONTEND
 ].filter(Boolean); // Remove any undefined
 
+console.log("🚦 Allowed CORS origins:", allowedOrigins);
+
+
 app.use(
   cors({
     origin: allowedOrigins,

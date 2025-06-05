@@ -1,13 +1,16 @@
 import express from "express";
-import passport from "passport";
 import pool from "../config/db.js"; // ✅ Make sure to import your DB connection
 
 const router = express.Router();
 
 // ✅ Route to get the currently logged-in user
 router.get("/user", (req, res) => {
-  console.log("User:", req.user);
-  console.log("Session:", req.session);
+  console.log("🔍 Incoming /api/user request");
+  console.log("➡️ Headers:", req.headers);
+  console.log("🍪 Cookies:", req.cookies);
+  console.log("📦 Session:", req.session);
+  console.log("👤 User:", req.user);
+
 
   if (req.isAuthenticated()) {
     res.json(req.user);
