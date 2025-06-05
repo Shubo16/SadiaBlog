@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { useUser } from "../contexts/UserContext";
 
 const BlogsHeader = () => {
-  const [buttonLoggedOut, buttonLoggedIn] = useState();
 
   return (
     <section className="h-auto w-screen">
       <img
-        src="src/assets/57.jpg"
+        src="/src/assets/57.jpg"
         alt="Header image"
         className="w-full h-44 object-cover object-[34%] rounded-b-xl shadow-amber-600 shadow-lg"
       />

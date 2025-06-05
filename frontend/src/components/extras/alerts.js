@@ -14,7 +14,6 @@ export const successfullyDeletedBlog = () => {
     position: "top-left",
     autoClose: 3000,
     theme: "light",
-    transition: "zoom",
     bodyStyle: {
       backgroundColor: "jadeGreen",
     },
@@ -95,6 +94,5 @@ export const errorLogin = () => {
     draggable: true,
     progress: 10,
     theme: "colored",
-    transition: Zoom,
   });
 };
