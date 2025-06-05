@@ -16,6 +16,8 @@ import recover from "./routes/recoverBlog.js";
 import comments from "./routes/comments.js";
 import likesRouter from "./routes/likes.js";
 import pool from "./config/db.js";
+import cookieParser from "cookie-parser";
+
 
 // Load environment variables at the very top
 dotenv.config();
@@ -36,6 +38,7 @@ if (!fs.existsSync(uploadsDir)) {
 // Middleware
 // Session must come first
 app.set("trust proxy", 1); // 🟢 Required for secure cookies on Render or behind any proxy
+app.use(cookieParser()); // ADD THIS LINE BEFORE session middleware
 
 app.use(
   session({
