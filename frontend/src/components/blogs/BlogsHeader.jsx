@@ -6,7 +6,7 @@ const BlogsHeader = () => {
   return (
     <section className="h-auto w-screen">
       <img
-        src="/src/assets/57.jpg"
+        src="/assets/57.jpg"
         alt="Header image"
         className="w-full h-44 object-cover object-[34%] rounded-b-xl shadow-amber-600 shadow-lg"
       />
