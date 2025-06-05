@@ -46,6 +46,7 @@ const CreateBlog = ({ onBlogCreated }) => {
       const response = await fetch("/api/blog", {
         method: "POST",
         body: formData,
+        withcredentials:'include',
       });
 
       const jsonResponse = await response.json();

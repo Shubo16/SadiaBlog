@@ -15,7 +15,7 @@ function MobileHeader() {
     try {
       const res = await api.get("/api/logout", {
         method: "POST",
-        credentials: "include",
+        withCredentials: "include",
       });
       if (res.ok) {
         setUser(null); // Clear user data
