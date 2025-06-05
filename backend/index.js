@@ -89,8 +89,8 @@ app.get("/", (req, res) => {
 
 app.get("/debug-db", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM users LIMIT 1");
-    res.json({ ok: true, user: result.rows[0] || "No user data" });
+    const result = await pool.query("SELECT * FROM users");
+    res.json({ ok: true, user: result.rows[1] || "No user data" });
   } catch (err) {
     res.status(500).json({ ok: false, error: err.message });
   }
