@@ -43,10 +43,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
+      secure: process.env.SECURE_COOKIES === "true", // true in production
+      sameSite: "none", // required for cross-origin cookies
       httpOnly: true,
-      secure: process.env.SECURE_COOKIES === 'true', // Use a specific env var
-      sameSite: process.env.SECURE_COOKIES === 'true' ? "none" : "lax", // sameSite="none" requires secure:true
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
     },
   })
 );
