@@ -46,7 +46,7 @@ const CreateBlog = ({ onBlogCreated }) => {
       const response = await fetch("/api/blog", {
         method: "POST",
         body: formData,
-        withcredentials:'include',
+        credentials:'include',
       });
 
       const jsonResponse = await response.json();
@@ -58,6 +58,7 @@ const CreateBlog = ({ onBlogCreated }) => {
 
       successFullyCreatedBlog();
       toggleNewBlog(); // Close the modal
+      if (onBlogCreated) onBlogCreated();
 
       // ✅ Tell the parent to refresh the blog list:
       if (onBlogCreated) onBlogCreated();

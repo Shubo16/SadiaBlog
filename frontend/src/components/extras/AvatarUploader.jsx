@@ -19,8 +19,16 @@ function AvatarUploader() {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        withCredentials: true,
+        credentials: true,
       });
+      let jsonResponse;
+      try {
+        jsonResponse = await response.json();
+      } catch (err) {
+        const text = await response.text();
+        console.error("Non-JSON response from server:", text);
+        throw new Error("Server returned invalid JSON");
+      }
 
       setUser((prev) => ({ ...prev, avatar_url: res.data.imageUrl }));
     } catch (err) {
