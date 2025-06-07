@@ -1,4 +1,3 @@
-import Footer from "../components/extras/Footer";
 import headerImg from "/57.jpg";
 
 function About() {
@@ -33,7 +32,6 @@ function About() {
           />
         </section>
       </div>
-      <Footer />
     </section>
   );
 }
