@@ -109,7 +109,7 @@ const CreateBlog = ({ onBlogCreated }) => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
                 transition={{ duration: 0.3 }}
-                className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[80%] bg-white shadow-lg rounded-lg p-5 z-50 overflow-scroll"
+                className="inset-0 m-auto fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[80%] bg-white shadow-lg rounded-lg p-5 z-50 overflow-scroll"
               >
                 {" "}
                 <div className="flex justify-between items-center mb-4">
