@@ -1,6 +1,6 @@
 import React, { useState, useTransition } from "react";
 import { FaPlus } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { useUser } from "../contexts/UserContext";
@@ -103,119 +103,127 @@ const CreateBlog = ({ onBlogCreated }) => {
           </button>
 
           {newBlog && (
-            <motion.div
-              initial={{ opacity: 0, y: 50, scale: 0.3 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
-              transition={{ duration: 0.3 }}
-              className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[80%] bg-white shadow-lg rounded-lg p-5 z-50 overflow-scroll"
-            >
-              {" "}
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Create a New Blog</h2>
-                <motion.button className="text-2xl" onClick={toggleNewBlog}>
-                  &times;
-                </motion.button>
-              </div>
-              <form onSubmit={handleSubmit}>
-                <div>
-                  <h1 className="capitalize">
-                    Created by {user.first_name} {user.last_name}
-                  </h1>
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0, y: 50, scale: 0.3 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+                transition={{ duration: 0.3 }}
+                className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[80%] bg-white shadow-lg rounded-lg p-5 z-50 overflow-scroll"
+              >
+                {" "}
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold">Create a New Blog</h2>
+                  <motion.button className="text-2xl" onClick={toggleNewBlog}>
+                    &times;
+                  </motion.button>
                 </div>
+                <form onSubmit={handleSubmit}>
+                  <div>
+                    <h1 className="capitalize">
+                      Created by {user.first_name} {user.last_name}
+                    </h1>
+                  </div>
 
-                <div className="mb-4">
-                  <label htmlFor="title" className="block text-sm font-medium">
-                    Title
-                  </label>
-                  <input
-                    id="title"
-                    name="title"
-                    value={blogData.title}
-                    onChange={handleInputChange}
-                    className="w-full p-2 mt-1 border rounded-md"
-                    placeholder="Enter blog title"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label htmlFor="image" className="block text-sm font-medium">
-                    Upload Image
-                  </label>
-                  <input
-                    type="file"
-                    onChange={handleChange}
-                    className="block"
-                  />
-                  {file && (
-                    <img
-                      src={URL.createObjectURL(file)}
-                      className="h-26 w-full object-cover rounded-md my-4"
-                      alt="Preview"
+                  <div className="mb-4">
+                    <label
+                      htmlFor="title"
+                      className="block text-sm font-medium"
+                    >
+                      Title
+                    </label>
+                    <input
+                      id="title"
+                      name="title"
+                      value={blogData.title}
+                      onChange={handleInputChange}
+                      className="w-full p-2 mt-1 border rounded-md"
+                      placeholder="Enter blog title"
                     />
-                  )}
-                </div>
+                  </div>
 
-                <div className="mb-4">
-                  <label
-                    htmlFor="category"
-                    className="block text-sm font-medium"
+                  <div className="mb-4">
+                    <label
+                      htmlFor="image"
+                      className="block text-sm font-medium"
+                    >
+                      Upload Image
+                    </label>
+                    <input
+                      type="file"
+                      onChange={handleChange}
+                      className="block"
+                    />
+                    {file && (
+                      <img
+                        src={URL.createObjectURL(file)}
+                        className="h-26 w-full object-cover rounded-md my-4"
+                        alt="Preview"
+                      />
+                    )}
+                  </div>
+
+                  <div className="mb-4">
+                    <label
+                      htmlFor="category"
+                      className="block text-sm font-medium"
+                    >
+                      Category
+                    </label>
+                    <input
+                      id="category"
+                      name="category"
+                      value={blogData.category}
+                      onChange={handleInputChange}
+                      className="w-full p-2 mt-1 border rounded-md"
+                      placeholder="Enter blog category"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label
+                      htmlFor="description"
+                      className="block text-sm font-medium"
+                    >
+                      Description
+                    </label>
+                    <input
+                      id="description"
+                      name="description"
+                      value={blogData.description}
+                      onChange={handleInputChange}
+                      className="w-full p-2 mt-1 border rounded-md"
+                      placeholder="Enter blog description"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label
+                      htmlFor="content"
+                      className="block text-sm font-medium"
+                    >
+                      Content
+                    </label>
+                    <textarea
+                      id="content"
+                      name="content"
+                      value={blogData.content}
+                      onChange={handleInputChange}
+                      className="w-full p-2 mt-1 border rounded-md"
+                      placeholder="Enter blog content"
+                    ></textarea>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full p-2 bg-jadeGreen text-white rounded-md"
+                    disabled={isPending}
                   >
-                    Category
-                  </label>
-                  <input
-                    id="category"
-                    name="category"
-                    value={blogData.category}
-                    onChange={handleInputChange}
-                    className="w-full p-2 mt-1 border rounded-md"
-                    placeholder="Enter blog category"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label
-                    htmlFor="description"
-                    className="block text-sm font-medium"
-                  >
-                    Description
-                  </label>
-                  <input
-                    id="description"
-                    name="description"
-                    value={blogData.description}
-                    onChange={handleInputChange}
-                    className="w-full p-2 mt-1 border rounded-md"
-                    placeholder="Enter blog description"
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label
-                    htmlFor="content"
-                    className="block text-sm font-medium"
-                  >
-                    Content
-                  </label>
-                  <textarea
-                    id="content"
-                    name="content"
-                    value={blogData.content}
-                    onChange={handleInputChange}
-                    className="w-full p-2 mt-1 border rounded-md"
-                    placeholder="Enter blog content"
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full p-2 bg-jadeGreen text-white rounded-md"
-                  disabled={isPending}
-                >
-                  {isPending ? "Submitting..." : "Create Blog"}
-                </button>
-              </form>
-            </motion.div>
+                    {isPending ? "Submitting..." : "Create Blog"}
+                  </button>
+                </form>
+              </motion.div>
+            </AnimatePresence>
           )}
         </>
       ) : null}
