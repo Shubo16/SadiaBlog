@@ -87,6 +87,8 @@ router.get("/blog/:slug", async (req, res) => {
 
 // Add a new blog with optional file upload
 router.post("/blog", upload.single("image"), async (req, res) => {
+  console.log("POST /blog route hit");
+
   try {
     const { title, category, description, content } = req.body;
     const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
