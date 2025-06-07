@@ -3,18 +3,18 @@ import headerImg from "/57.jpg";
 function About() {
   return (
     <section className=" bg-navajoWhite">
-      <div className="flex flex-col lg:flex-row lg:h-full">
+      <div className="flex flex-col md:flex-row md:h-full">
         {/* Image First on mobile, second on large */}
-        <div className="w-full lg:w-1/2 order-1 lg:order-2">
+        <div className="w-full md:w-1/2 order-1 md:order-2">
           <img
             src={headerImg}
             alt="Sadia's portrait"
-            className="w-full h-auto lg:h-full object-cover"
+            className="w-full h-auto md:h-full object-cover"
           />
         </div>
 
         {/* Text Section */}
-        <div className="w-full lg:w-1/2 order-2 lg:order-1 flex flex-col justify-center p-6 gap-6 text-base lg:text-lg font-light text-jadeGreen">
+        <div className="w-full md:w-1/2 order-2 md:order-1 flex flex-col justify-center p-6 gap-6 text-base md:text-md font-light text-jadeGreen">
           <p>
             Hi I'm Sadia and welcome to my Blog Page. I'm currently a uni student, hustling and aspiring to become the best academic student I can. Born and raised in London, I feel so grateful to have grown up in a culture enriched with so much love and diversity.
           </p>
