@@ -101,15 +101,15 @@ function PageWrapper({ children }) {
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="flex flex-col">
+      <div className="flex flex-col min-h-screen">
         <AnimationScroll />
-        <Navbar />
+        <Navbar className="min-h-screen flex flex-col"/>
 
         <main className="flex-1">
           <AnimatedRoutes />
         </main>
 
-        <Footer />
+        <Footer/>
         <ToastContainer
           position="top-right"
           autoClose={5000}
