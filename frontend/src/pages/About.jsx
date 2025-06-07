@@ -1,4 +1,5 @@
 import Footer from "../components/extras/Footer";
+import headerImg from "/57.jpg";
 
 function About() {
   const text1 =
@@ -26,7 +27,7 @@ function About() {
         </section>
         <section className="w-full">
           <img
-            src="./src/assets/57.jpg"
+            src={headerImg}
             alt="description"
             className="w-full h-[80svh] object-fill" //controls height of the entire container from here for whatever reason keep that in mind
           />
