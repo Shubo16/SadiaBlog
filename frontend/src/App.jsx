@@ -101,7 +101,7 @@ function PageWrapper({ children }) {
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col">
         <AnimationScroll />
         <Navbar />
 
