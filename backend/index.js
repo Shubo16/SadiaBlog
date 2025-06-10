@@ -1,5 +1,13 @@
 import express from "express";
-import dotenv from "dotenv";
+
+// dotenv flow
+import dotenvFlow from "dotenv-flow";
+dotenvFlow.config();
+console.log("DB_USER:", process.env.DB_USER);
+console.log("Loaded BASE_URL_FRONTEND:", process.env.BASE_URL_FRONTEND);
+console.log("Loaded NODE_ENV:", process.env.NODE_ENV);
+
+// 
 import path from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
@@ -18,9 +26,8 @@ import likesRouter from "./routes/likes.js";
 import pool from "./config/db.js";
 import cookieParser from "cookie-parser";
 
-
-// Load environment variables at the very top
-dotenv.config();
+// Load environment variables at the very top using dotenvflow
+dotenvFlow.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -40,14 +47,16 @@ if (!fs.existsSync(uploadsDir)) {
 app.set("trust proxy", 1); // 🟢 Required for secure cookies on Render or behind any proxy
 app.use(cookieParser()); // ADD THIS LINE BEFORE session middleware
 
+const isProd = process.env.NODE_ENV === 'production';
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: process.env.SECURE_COOKIES === "true", // true in production
-      sameSite: "none", // required for cross-origin cookies
+      secure: isProd, // true in prod, false in dev
+      sameSite: isProd ? 'none' : 'lax', // none in prod, lax in dev
       httpOnly: true,
     },
   })
@@ -61,11 +70,10 @@ app.use(passport.session());
 const allowedOrigins = [
   process.env.BASE_URL_FRONTEND,
   process.env.BASE_URL,
-  process.env.LATEST_DEPLOYMENT_URL_FRONTEND
-].filter(Boolean); // Remove any undefined
+  process.env.LATEST_DEPLOYMENT_URL_FRONTEND,
+].filter(Boolean);
 
 console.log("🚦 Allowed CORS origins:", allowedOrigins);
-
 
 app.use(
   cors({

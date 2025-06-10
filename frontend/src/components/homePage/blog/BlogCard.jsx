@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import BlogAuthorAvatar from "../../extras/BlogAuthor";
-import { BASE_URL } from "../../../services/backendApi";
+import api, { BASE_URL } from "../../../services/backendApi";
 
 function BlogCard({
   id,

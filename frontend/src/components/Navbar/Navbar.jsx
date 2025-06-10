@@ -13,14 +13,12 @@ function MobileHeader() {
 
   const handleLogout = async () => {
     try {
-      const res = await api.get("/api/logout", {
-        method: "POST",
-        withCredentials: "include",
-      });
-      if (res.ok) {
-        setUser(null); // Clear user data
-        navigate("/"); // Redirect to homepage
-        window.location.reload(); // Optional, but you might not need this
+      const res = await api.post("/api/logout", {}, { withCredentials: true });
+      // res.ok doesn't exist in axios; you should check status
+      if (res.status === 200) {
+        setUser(null);
+        navigate("/");
+        // window.location.reload(); // Usually not needed if you update UI properly
       } else {
         console.error("Logout error:", res.statusText);
       }
