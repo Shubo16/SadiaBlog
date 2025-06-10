@@ -109,9 +109,7 @@ const CreateBlog = ({ onBlogCreated }) => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
                 transition={{ duration: 0.3 }}
-                className="inset-0 m-auto fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[80%] bg-white shadow-lg rounded-lg p-5 z-50 overflow-scroll"
-              >
-                {" "}
+                className="fixed h-auto left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 bg-white shadow-lg rounded-lg p-5 z-50 overflow-scroll">                {" "}
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">Create a New Blog</h2>
                   <motion.button className="text-2xl" onClick={toggleNewBlog}>
@@ -157,7 +155,7 @@ const CreateBlog = ({ onBlogCreated }) => {
                     {file && (
                       <img
                         src={URL.createObjectURL(file)}
-                        className="h-26 w-full object-cover rounded-md my-4"
+                        className="h-36 w-full object-cover rounded-md my-4"
                         alt="Preview"
                       />
                     )}
@@ -209,7 +207,7 @@ const CreateBlog = ({ onBlogCreated }) => {
                       name="content"
                       value={blogData.content}
                       onChange={handleInputChange}
-                      className="w-full p-2 mt-1 border rounded-md"
+                      className="w-full p-2 mt-1 border rounded-md h-48"
                       placeholder="Enter blog content"
                     ></textarea>
                   </div>
