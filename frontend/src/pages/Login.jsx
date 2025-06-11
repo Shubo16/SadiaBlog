@@ -43,8 +43,7 @@ const Login = () => {
 
       if (response.status === 200) {
         setTimeout(() => {
-          navigate("/");
-          // Redirect after a delay
+          window.location.href = '/';          // Redirect after a delay
         }, 1000);
       }
 

@@ -204,7 +204,7 @@ router.get('/edit/:id', async (req, res) => {
 
 //Updating a blog
 
-router.put("/blog/edit/:id", async (req, res) => {
+router.put("/blog/edit/:id", upload.single("image"), async (req, res) => {
   const { id } = req.params;
   const { title, category, description, content } = req.body;
 
@@ -219,11 +219,19 @@ router.put("/blog/edit/:id", async (req, res) => {
       return res.status(404).json({ error: "Blog not found" });
     }
 
+    let imagePath = blogResult.rows[0].image_path;
+
+    // If a new image is uploaded, update imagePath
+    if (req.file) {
+      imagePath = `/uploads/${req.file.filename}`;
+      // Optionally: delete old image file here if you want to clean up storage
+    }
+
     await pool.query(
       `UPDATE blog 
-       SET title = $1, category = $2, description = $3, content = $4
-       WHERE id = $5`,
-      [title, category, description, content, id]
+       SET title = $1, category = $2, description = $3, content = $4, image_path = $5
+       WHERE id = $6`,
+      [title, category, description, content, imagePath, id]
     );
 
     res.status(200).json({ message: "Blog updated successfully" });
