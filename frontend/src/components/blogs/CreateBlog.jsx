@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { useUser } from "../contexts/UserContext";
 import { successFullyCreatedBlog } from "../extras/alerts";
+import api from "../../services/backendApi";
 
 const CreateBlog = ({ onBlogCreated }) => {
   const { user } = useUser();
@@ -53,32 +54,19 @@ const CreateBlog = ({ onBlogCreated }) => {
     formData.append("description", blogData.description);
     formData.append("content", blogData.content);
     if (file) formData.append("image", file);
-
+  
     try {
-      const response = await fetch("/api/blog", {
-        method: "POST",
-        body: formData,
-        credentials: "include",
+      const response = await api.post("/api/blog", formData, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
-
-      let jsonResponse;
-      const contentType = response.headers.get("content-type");
-
-      if (contentType && contentType.includes("application/json")) {
-        jsonResponse = await response.json();
-      } else {
-        const text = await response.text();
-        throw new Error(`Unexpected response: ${text}`);
-      }
-
-      if (!response.ok) {
-        throw new Error(jsonResponse.error || "Something went wrong");
-      }
-
+  
       successFullyCreatedBlog();
       toggleNewBlog();
       if (onBlogCreated) onBlogCreated();
-
+  
       setBlogData({
         title: "",
         category: "",
@@ -88,7 +76,9 @@ const CreateBlog = ({ onBlogCreated }) => {
       setFile(null);
     } catch (error) {
       console.error("There has been an error", error);
-      toast.error(error.message || "There was an issue creating the blog.", {
+      const message =
+        error.response?.data?.error || "There was an issue creating the blog.";
+      toast.error(message, {
         position: "top-right",
         autoClose: 3000,
         theme: "light",
