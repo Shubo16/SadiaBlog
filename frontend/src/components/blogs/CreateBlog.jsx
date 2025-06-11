@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import React, { useState, useTransition, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +17,18 @@ const CreateBlog = ({ onBlogCreated }) => {
     content: "",
   });
   const [isPending, startTransition] = useTransition({ timeoutMs: 3000 });
+
+  useEffect(() => {
+    if (newBlog) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [newBlog]);
 
   const toggleNewBlog = () => setNewBlog(!newBlog);
 
@@ -88,13 +100,15 @@ const CreateBlog = ({ onBlogCreated }) => {
     <div>
       {user ? (
         <>
-          {/* Add New Blog Button */}
+          {/* Floating Button (Mobile) */}
           <button
             className="fixed bottom-24 right-4 z-50 rounded-full bg-jadeGreen p-3 text-white shadow-lg hover:bg-blue-700 sm:hidden"
             onClick={toggleNewBlog}
           >
             <FaPlus className="h-6 w-6" />
           </button>
+
+          {/* Desktop Button */}
           <button
             className="hidden sm:block sm:absolute px-5 py-2.5 rounded-lg text-sm font-medium border-jadeGreen border-2 hover:bg-jadeGreen text-green-700 hover:text-white transition-all duration-300 top-72 right-10 mt-6"
             onClick={toggleNewBlog}
@@ -102,127 +116,124 @@ const CreateBlog = ({ onBlogCreated }) => {
             Add New Blog
           </button>
 
-          {newBlog && (
-            <AnimatePresence>
-              <motion.div
-                initial={{ opacity: 0, y: 50, scale: 0.3 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
-                transition={{ duration: 0.3 }}
-                className="fixed h-auto left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 bg-white shadow-lg rounded-lg p-5 z-50 overflow-scroll">                {" "}
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">Create a New Blog</h2>
-                  <motion.button className="text-2xl" onClick={toggleNewBlog}>
-                    &times;
-                  </motion.button>
-                </div>
-                <form onSubmit={handleSubmit}>
-                  <div>
-                    <h1 className="capitalize">
-                      Created by {user.first_name} {user.last_name}
-                    </h1>
-                  </div>
+          <AnimatePresence>
+            {newBlog && (
+              <>
+                {/* Backdrop */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black bg-opacity-40 z-40"
+                />
 
-                  <div className="mb-4">
-                    <label
-                      htmlFor="title"
-                      className="block text-sm font-medium"
-                    >
-                      Title
-                    </label>
-                    <input
-                      id="title"
-                      name="title"
-                      value={blogData.title}
-                      onChange={handleInputChange}
-                      className="w-full p-2 mt-1 border rounded-md"
-                      placeholder="Enter blog title"
-                    />
-                  </div>
+                {/* Modal Container */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                  className="fixed inset-0 z-50 flex items-center justify-center"
+                >
+                  {/* Scrollable Modal Content */}
+                  <div className="w-11/12 max-w-3xl h-[90vh] overflow-y-auto bg-white shadow-lg rounded-lg p-5">
+                    <div className="flex justify-between items-center mb-4">
+                      <h2 className="text-xl font-bold text-center">Create a New Blog</h2>
+                      <motion.button className="text-2xl" onClick={toggleNewBlog}>
+                        &times;
+                      </motion.button>
+                    </div>
 
-                  <div className="mb-4">
-                    <label
-                      htmlFor="image"
-                      className="block text-sm font-medium"
-                    >
-                      Upload Image
-                    </label>
-                    <input
-                      type="file"
-                      onChange={handleChange}
-                      className="block"
-                    />
-                    {file && (
-                      <img
-                        src={URL.createObjectURL(file)}
-                        className="h-36 w-full object-cover rounded-md my-4"
-                        alt="Preview"
-                      />
-                    )}
-                  </div>
+                    <form onSubmit={handleSubmit}>
+                      <div>
+                        <h1 className="capitalize">
+                          Created by {user.first_name} {user.last_name}
+                        </h1>
+                      </div>
 
-                  <div className="mb-4">
-                    <label
-                      htmlFor="category"
-                      className="block text-sm font-medium"
-                    >
-                      Category
-                    </label>
-                    <input
-                      id="category"
-                      name="category"
-                      value={blogData.category}
-                      onChange={handleInputChange}
-                      className="w-full p-2 mt-1 border rounded-md"
-                      placeholder="Enter blog category"
-                    />
-                  </div>
+                      <div className="mb-4">
+                        <label htmlFor="title" className="block text-sm font-medium">
+                          Title
+                        </label>
+                        <input
+                          id="title"
+                          name="title"
+                          value={blogData.title}
+                          onChange={handleInputChange}
+                          className="w-full p-2 mt-1 border rounded-md"
+                          placeholder="Enter blog title"
+                        />
+                      </div>
 
-                  <div className="mb-4">
-                    <label
-                      htmlFor="description"
-                      className="block text-sm font-medium"
-                    >
-                      Description
-                    </label>
-                    <input
-                      id="description"
-                      name="description"
-                      value={blogData.description}
-                      onChange={handleInputChange}
-                      className="w-full p-2 mt-1 border rounded-md"
-                      placeholder="Enter blog description"
-                    />
-                  </div>
+                      <div className="mb-4">
+                        <label htmlFor="image" className="block text-sm font-medium">
+                          Upload Image
+                        </label>
+                        <input type="file" onChange={handleChange} className="block" />
+                        {file && (
+                          <img
+                            src={URL.createObjectURL(file)}
+                            className="h-48 w-full object-cover rounded-md my-4"
+                            alt="Preview"
+                          />
+                        )}
+                      </div>
 
-                  <div className="mb-4">
-                    <label
-                      htmlFor="content"
-                      className="block text-sm font-medium"
-                    >
-                      Content
-                    </label>
-                    <textarea
-                      id="content"
-                      name="content"
-                      value={blogData.content}
-                      onChange={handleInputChange}
-                      className="w-full p-2 mt-1 border rounded-md h-48"
-                      placeholder="Enter blog content"
-                    ></textarea>
-                  </div>
+                      <div className="mb-4">
+                        <label htmlFor="category" className="block text-sm font-medium">
+                          Category
+                        </label>
+                        <input
+                          id="category"
+                          name="category"
+                          value={blogData.category}
+                          onChange={handleInputChange}
+                          className="w-full p-2 mt-1 border rounded-md"
+                          placeholder="Enter blog category"
+                        />
+                      </div>
 
-                  <button
-                    type="submit"
-                    className="w-full p-2 bg-jadeGreen text-white rounded-md"
-                    disabled={isPending}
-                  >
-                    {isPending ? "Submitting..." : "Create Blog"}
-                  </button>
-                </form>
-              </motion.div>
-            </AnimatePresence>
-          )}
+                      <div className="mb-4">
+                        <label htmlFor="description" className="block text-sm font-medium">
+                          Description
+                        </label>
+                        <input
+                          id="description"
+                          name="description"
+                          value={blogData.description}
+                          onChange={handleInputChange}
+                          className="w-full p-2 mt-1 border rounded-md"
+                          placeholder="Enter blog description"
+                        />
+                      </div>
+
+                      <div className="mb-4">
+                        <label htmlFor="content" className="block text-sm font-medium">
+                          Content
+                        </label>
+                        <textarea
+                          id="content"
+                          name="content"
+                          value={blogData.content}
+                          onChange={handleInputChange}
+                          className="w-full p-2 mt-1 border rounded-md h-48"
+                          placeholder="Enter blog content"
+                        ></textarea>
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="w-full p-2 bg-jadeGreen text-white rounded-md"
+                        disabled={isPending}
+                      >
+                        {isPending ? "Submitting..." : "Create Blog"}
+                      </button>
+                    </form>
+                  </div>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
         </>
       ) : null}
     </div>
