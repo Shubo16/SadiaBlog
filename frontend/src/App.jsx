@@ -12,6 +12,7 @@ import MyAccount from "./pages/MyAccount";
 import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/extras/Footer";
+import EditBlog from "./components/blogs/blogPage/EditBlog";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -51,6 +52,15 @@ function AnimatedRoutes() {
           element={
             <PageWrapper>
               <BlogContentsPage />
+            </PageWrapper>
+          }
+        />
+
+        <Route
+          path="/edit-blog/:id"
+          element={
+            <PageWrapper>
+              <EditBlog />
             </PageWrapper>
           }
         />
@@ -103,13 +113,13 @@ export default function App() {
     <BrowserRouter>
       <div className="flex flex-col min-h-screen">
         <AnimationScroll />
-        <Navbar className="min-h-screen flex flex-col"/>
+        <Navbar className="min-h-screen flex flex-col" />
 
         <main className="flex-1">
           <AnimatedRoutes />
         </main>
 
-        <Footer/>
+        <Footer />
         <ToastContainer
           position="top-right"
           autoClose={5000}

@@ -17,8 +17,6 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, "..");
 const upload = multer({ dest: path.join(rootDir, "uploads") });
 
-
-
 // Fetch all blogs for landing page or other use-cases
 router.get("/blog", async (req, res) => {
   try {
@@ -136,7 +134,9 @@ router.post("/blog/archive/:id", async (req, res) => {
 
   try {
     // 1️⃣ Get the blog data
-    const blogResult = await pool.query("SELECT * FROM blog WHERE id = $1", [id]);
+    const blogResult = await pool.query("SELECT * FROM blog WHERE id = $1", [
+      id,
+    ]);
 
     if (blogResult.rows.length === 0) {
       return res.status(404).json({ error: "Blog not found" });
@@ -182,16 +182,55 @@ router.post("/blog/archive/:id", async (req, res) => {
   }
 });
 
-// router.get("/blog", async (req, res) => {
-//   console.log("GET /api/blog called");
-//   try {
-//     const result = await pool.query("SELECT 1");
-//     console.log("pool test query success:", result.rows);
-//     // Then do your real query here
-//     // ...
-//   } catch (err) {
-//     console.error(err);
-//   }
-// });
+// editing
+
+// Get a single blog by ID for editing
+router.get('/edit/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query('SELECT * FROM blog WHERE id = $1', [id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('Error fetching blog by ID:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+//Updating a blog
+
+router.put("/blog/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, category, description, content } = req.body;
+
+  console.log("Editing blog with ID", id);
+
+  try {
+    const blogResult = await pool.query("SELECT * FROM blog WHERE id = $1", [
+      id,
+    ]);
+
+    if (blogResult.rows.length === 0) {
+      return res.status(404).json({ error: "Blog not found" });
+    }
+
+    await pool.query(
+      `UPDATE blog 
+       SET title = $1, category = $2, description = $3, content = $4
+       WHERE id = $5`,
+      [title, category, description, content, id]
+    );
+
+    res.status(200).json({ message: "Blog updated successfully" });
+  } catch (error) {
+    console.error("Error updating blog:", error);
+    res.status(500).json({ error: "Server error while updating blog" });
+  }
+});
 
 export default router;

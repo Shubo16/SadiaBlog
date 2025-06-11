@@ -21,7 +21,7 @@ export const successfullyDeletedBlog = () => {
 };
 
 export const errorDeletingBlog = () => {
-  toast.error("Watch what you're typing:/", {
+  toast.error("Try Delete Blog later", {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
@@ -34,6 +34,31 @@ export const errorDeletingBlog = () => {
   });
 };
 
+export const successfullyEditedBlog = () => {
+  toast.success("Successfully Edited Your blog", {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: false,
+    draggable: true,
+    progress: 10,
+    theme: "colored",
+  });
+}
+
+export const errorEditingBlog = () => {
+  toast.error("Can't edit your blog right now, please try again", {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: false,
+    draggable: true,
+    progress: 10,
+    theme: "colored",
+  });
+}
 
 // Success notification for newsletter
 export const successfulNotifNewsletter = () => {
@@ -55,7 +80,7 @@ export const successfulNotifNewsletter = () => {
 
 // Error notification for newsletter
 export const errorNotifNewsletter = () => {
-  toast.error("Watch what you're typing:/", {
+  toast.error("Email not valid, try again!", {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,

@@ -36,23 +36,24 @@ const BlogComponent = ({ toggleRefresh }) => {
     const getBlogs = async () => {
       try {
         const response = await api.get("/api/blog/");
-        setBlogs(response.data); 
+        setBlogs(response.data);
       } catch (err) {
         console.error("Error fetching blogs:", err);
         setError("Cannot load blogs. Please try again later.");
       }
     };
-  
+
     getBlogs();
   }, [toggleRefresh]);
-  
 
+  //options
   const clickOptions = (id) => {
     setOptions((prevOptions) => ({
       ...prevOptions,
       [id]: !prevOptions[id],
     }));
   };
+  //archiving or deleting blogs from blogpage
 
   const handleArchiveBlog = async (id) => {
     try {
@@ -64,7 +65,15 @@ const BlogComponent = ({ toggleRefresh }) => {
       errorDeletingBlog();
     }
   };
-
+  //editing blog
+  const handleEditBlog = async (id) => {
+    try {
+      await api.put(`/api/blog/edit${id}`);
+    } catch (err) {
+      console.log("error editing blog", err);
+      errorEditingBlog();
+    }
+  };
   return (
     <div className="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex h-auto">
       {error ? (
@@ -107,9 +116,11 @@ const BlogComponent = ({ toggleRefresh }) => {
                     </h2>
 
                     <div className="px-6 py-2">
-                      <h1 className="sm:text-lg md:text-xl lg:text-2xl capitalize font-bold text-gray-900 mb-1 hover:underline cursor-pointer">
-                        {blog.title}
-                      </h1>
+                      <Link to={`/blog/${blog.slug}`}>
+                        <h1 className="sm:text-lg md:text-xl lg:text-2xl capitalize font-bold text-gray-900 mb-1 hover:underline cursor-pointer">
+                          {blog.title}
+                        </h1>
+                      </Link>
 
                       <div className="flex items-center gap-2 mb-2">
                         <BlogAuthorAvatar src={blog.avatar_url} />
@@ -153,17 +164,22 @@ const BlogComponent = ({ toggleRefresh }) => {
                           className="cursor-pointer p-1"
                           aria-label="Options"
                         >
-                          <SlOptionsVertical size={18} className="hover:scale-125 hover:transition-all hover:ease-in-out" />
+                          <SlOptionsVertical
+                            size={18}
+                            className="hover:scale-125 hover:transition-all hover:ease-in-out"
+                          />
                         </button>
 
                         {options[blog.id] && (
                           <div className="absolute right-4 -translate-y-full w-32 bg-white shadow-lg rounded-md z-50">
-                            <button
-                              type="button"
-                              className="block w-full px-4 py-2 text-center text-gray-700 active:bg-gray-100 hover:bg-jadeGreen"
-                            >
-                              Edit
-                            </button>
+                            <Link to={`/edit-blog/${blog.id}`}>
+                              <button
+                                type="button"
+                                className="block w-full px-4 py-2 text-center text-gray-700 active:bg-gray-100 hover:bg-jadeGreen"
+                              >
+                                Edit
+                              </button>
+                            </Link>
                             <button
                               type="button"
                               onClick={() => handleArchiveBlog(blog.id)}
