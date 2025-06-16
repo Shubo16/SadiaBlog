@@ -39,7 +39,7 @@ export default function LandingBlog() {
   }
 
   return (
-    <div className="flex justify-center px-4 mb-10">
+    <div className="flex justify-center px-4 mb-10 dark:bg-darkNavyBlue">
       <section className="w-full max-w-screen-lg h-auto grid gap-10 pt-8 lg:grid-cols-2 md:px-24 lg:px-0">
         {latestBlog ? (
           <>
@@ -47,7 +47,7 @@ export default function LandingBlog() {
               <img
                 src={`${BASE_URL}${latestBlog.image_path}`}
                 alt="Blog Cover"
-                className="w-full h-[23rem] md:h-[22rem] md:w-2/3 lg:w-full rounded-2xl border-2 object-cover shadow-lg"
+                className="w-full h-[23rem] md:h-[22rem] md:w-2/3 lg:w-full rounded-2xl border-2 object-cover shadow-lg dark:border-jade"
               />
             </div>
 
@@ -62,7 +62,7 @@ export default function LandingBlog() {
               </ul>
 
               <div className="flex flex-col gap-8">
-                <h1 className="text-2xl md:text-3xl font-extrabold capitalize">
+                <h1 className="text-2xl md:text-3xl font-extrabold capitalize dark:text-white">
                   {latestBlog.title}
                 </h1>
                 <h3 className="text-xl md:text-2xl">

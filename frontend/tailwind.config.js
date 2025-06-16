@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -12,7 +13,11 @@ export default {
         dimWhite: "rgba(255, 255, 255, 0.7)",
         dimBlue: "rgba(9, 151, 124, 0.1)",
         jadeGreen:"#00A86B",
-        navajoWhite:"#FFF5EE"
+        navajoWhite:"#FFF5EE",
+        darkNavyBlue: "#0F172A",
+        darkTextWhite:"#F8FAFC"
+        
+
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

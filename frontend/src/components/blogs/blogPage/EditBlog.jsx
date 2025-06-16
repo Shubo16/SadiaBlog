@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import api, { BASE_URL } from "../../../services/backendApi";
 import { errorEditingBlog, successfullyEditedBlog } from "../../extras/alerts";
+import { FaArrowLeft } from "react-icons/fa";
 
 function EditBlog() {
   const { id } = useParams();
@@ -81,6 +82,13 @@ function EditBlog() {
 
   return (
     <div className="max-w-3xl mx-auto py-10 px-4">
+      <Link
+        to="/Blogs"
+        className="hover:text-jadeGreen mb-4 inline-flex items-center gap-1 xs:border-0 ss:border-b-2 border-black capitalize"
+      >
+        <FaArrowLeft />
+        <h3 className="hidden ss:inline">Back to all blogs</h3>
+      </Link>
       <h1 className="text-2xl font-bold mb-6 text-center">Edit Blog</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input

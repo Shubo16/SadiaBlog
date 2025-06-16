@@ -1,15 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCycle, motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext"; // adjust path if needed
 import AvatarUploader from "../extras/AvatarUploader";
 import api from "../../services/backendApi";
+import DarkMode from "../extras/DarkMode";
 
 function MobileHeader() {
   const navigate = useNavigate();
 
   const [mobileNav, toggleMobileNav] = useCycle(false, true);
   const { user, setUser, loading } = useUser();
+  const [isDark, setIsDark] = useState();
+
+  useEffect(() => {
+    setIsDark(document.body.classList.contains("dark"));
+
+    const observer = new MutationObserver(() => {
+      setIsDark(document.body.classList.contains("dark"));
+    });
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -30,7 +47,7 @@ function MobileHeader() {
   const navLinks = [
     { key: 1, title: "Home", href: "/" },
     { key: 2, title: "Blogs", href: "/blogs" },
-    { key: 3, title: "Travels", href: "/" },
+    // { key: 3, title: "Travels", href: "/" },
     { key: 4, title: "About Me", href: "/about" },
 
     {
@@ -72,10 +89,10 @@ function MobileHeader() {
   };
 
   return (
-    <header className="h-[10svh] w-full flex items-center justify-between px-5 z-50 sticky border-b-4 border-black mb-0 bg-slate-50">
+    <header className="h-[10svh] w-full flex items-center justify-between px-5 z-50 sticky border-b-4 border-black dark:border-jadeGreen mb-0 bg-slate-50 dark:bg-darkNavyBlue">
       <ul className="flex items-center">
         <Link to="/">
-          <h1 className="text-black text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold uppercase font-poppins hover:text-jadeGreen ">
+          <h1 className="text-black dark:text-darkTextWhite text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold uppercase font-poppins hover:text-jadeGreen ">
             Sadia's Blog
           </h1>
         </Link>
@@ -84,11 +101,14 @@ function MobileHeader() {
           {loading ? (
             <li>Loading...</li>
           ) : user ? (
-            <li className="text-neutral-950 hidden sm:inline font-poppins">Welcome back, {user.username}</li>
+            <li className="text-neutral-950 dark:text-darkTextWhite hidden sm:inline font-poppins">
+              Welcome back, {user.username}
+            </li>
           ) : (
             <div />
           )}
           {user ? <AvatarUploader /> : <div />}
+          <DarkMode/>
         </div>
       </ul>
 
@@ -102,7 +122,7 @@ function MobileHeader() {
             variants={{
               closed: {
                 rotate: 0,
-                backgroundColor: "#000000",
+                backgroundColor: isDark ? "#F5F5F4" : "#000000",
                 transition: {
                   duration: 0.8,
                 },
@@ -110,15 +130,24 @@ function MobileHeader() {
               open: { rotate: 45, y: 12, backgroundColor: "#00A86B" },
             }}
             whileHover={{ backgroundColor: "jadeGreen" }}
-            className="w-8 h-1 rounded-xl block z-50 hover:bg-jadeGreen"
-          />
-          <motion.span
-            variants={{ closed: { opacity: 1 }, open: { opacity: 0 } }}
-            className="w-8 h-1 rounded-xl bg-black block z-50 hover:bg-jadeGreen"
+            className="w-8 h-1 rounded-xl block z-50 hover:bg-jadeGree"
           />
           <motion.span
             variants={{
-              closed: { rotate: 0, backgroundColor: "#000000" },
+              closed: {
+                opacity: 1,
+                backgroundColor: isDark ? "#F5F5F4" : "#000000",
+              },
+              open: { opacity: 0 },
+            }}
+            className="w-8 h-1 rounded-xl block z-50 hover:bg-jadeGreen"
+          />
+          <motion.span
+            variants={{
+              closed: {
+                rotate: 0,
+                backgroundColor: isDark ? "#F5F5F4" : "#000000",
+              },
               open: { rotate: -45, y: -12, backgroundColor: "#00A86B" },
             }}
             className="w-8 h-1 rounded-xl block z-50 hover:bg-jadeGreen"
