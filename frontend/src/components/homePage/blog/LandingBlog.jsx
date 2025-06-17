@@ -13,10 +13,7 @@ export default function LandingBlog() {
         const response = await api.get("/api/blog");
         const data = response.data;
         setBlogs(data);
-
-        if (data.length > 0) {
-          setLatestBlog(data[0]); // Set the latest blog
-        }
+        if (data.length > 0) setLatestBlog(data[0]);
       } catch (err) {
         console.error("Error fetching blogs:", err);
       }
@@ -25,64 +22,55 @@ export default function LandingBlog() {
     getBlogs();
   }, []);
 
-  // ✅ Only format if latestBlog exists
   let formattedDate = "";
   if (latestBlog) {
     formattedDate = new Date(latestBlog.date_created).toLocaleDateString(
       "en-UK",
-      {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }
+      { year: "numeric", month: "long", day: "numeric" }
     );
   }
 
   return (
-    <div className="flex justify-center px-4 mb-10 dark:bg-darkNavyBlue">
-      <section className="w-full max-w-screen-lg h-auto grid gap-10 pt-8 lg:grid-cols-2 md:px-24 lg:px-0">
+    <div className="flex justify-center px-4 bg-white dark:bg-darkBackground transition-colors duration-300">
+      <section className="w-full max-w-screen-lg h-auto grid gap-12 pt-10 lg:grid-cols-2 md:px-16 lg:px-0">
         {latestBlog ? (
           <>
             <div className="md:flex md:justify-center">
               <img
                 src={`${BASE_URL}${latestBlog.image_path}`}
                 alt="Blog Cover"
-                className="w-full h-[23rem] md:h-[22rem] md:w-2/3 lg:w-full rounded-2xl border-2 object-cover shadow-lg dark:border-jade"
+                className="w-full h-[23rem] md:h-[22rem] md:w-2/3 lg:w-full rounded-2xl border object-cover shadow-lg border-gray-300 dark:border-slate-700"
               />
             </div>
 
-            <div className="flex flex-col">
-              <ul className="flex w-full flex-col-reverse  md:gap-9 text-xl font-semibold text-gray-600 mb-2 capitalize md:flex-row lg:justify-between md:items-center">
-                <li className="text-nowrap">{formattedDate}</li>
-                <li className="">{latestBlog.category}</li>
-                <li className="flex gap-2 md:w-full flex-row-reverse justify-between md:ml-0 md:items-center">
+            <div className="flex flex-col gap-6">
+              <ul className="flex flex-wrap justify-between text-sm font-medium text-gray-600 dark:text-darkMutedText uppercase tracking-wide">
+                <li>{formattedDate}</li>
+                <li>{latestBlog.category}</li>
+                <li className="flex items-center gap-2">
                   <BlogAuthorAvatar src={latestBlog.avatar_url} />
-                  <span className="l">By {latestBlog.username}</span>
+                  <span>By {latestBlog.username}</span>
                 </li>
               </ul>
 
-              <div className="flex flex-col gap-8">
-                <h1 className="text-2xl md:text-3xl font-extrabold capitalize dark:text-white">
-                  {latestBlog.title}
-                </h1>
-                <h3 className="text-xl md:text-2xl">
-                  {latestBlog.description}...
-                </h3>
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-darkText capitalize">
+                {latestBlog.title}
+              </h1>
+              <p className="text-lg text-gray-700 dark:text-slate-300 leading-relaxed">
+                {latestBlog.description}...
+              </p>
 
-                <div className="flex justify-center md:justify-end">
-                  <Link to={`/blog/${latestBlog.slug}`}>
-                    {" "}
-                    {/* Updated Link */}
-                    <button className="text-lg group relative inline-flex h-12 w-60 items-center justify-center overflow-hidden rounded-md border-4 border-black bg-transparent font-medium text-jadeGreen transition-all duration-150 shadow-[5px_5px_rgb(82_82_82)] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none uppercase hover:bg-jadeGreen hover:text-white">
-                      continue reading
-                    </button>
-                  </Link>
-                </div>
+              <div className="flex justify-center md:justify-end">
+                <Link to={`/blog/${latestBlog.slug}`}>
+                  <button className="px-6 py-3 border-2 border-jadeGreen text-jadeGreen dark:text-jadeGreen dark:border-jadeGreen rounded-md text-sm font-semibold uppercase hover:bg-jadeGreen hover:text-white dark:hover:text-white transition-all duration-200 shadow-md dark:shadow-[0_0_10px_rgba(0,168,107,0.3)]">
+                    Continue Reading
+                  </button>
+                </Link>
               </div>
             </div>
           </>
         ) : (
-          <p>Loading latest blog...</p>
+          <p className="text-gray-700 dark:text-darkMutedText">Loading latest blog...</p>
         )}
       </section>
     </div>

@@ -38,36 +38,40 @@ export const NewsLetter = () => {
   };
 
   return (
-    <main className="w-full px-4 py-8 flex flex-col items-center bg-white border-t-4 border-black">
+    <main className="w-full px-4 py-8 flex flex-col items-center bg-white dark:bg-gray-900 border-t-4 border-black dark:border-jadeGreen">
       <div className="text-center mb-4 text-sm font-bold font-poppins">
-        <h2 className="capitalize text-lg">Be the first to access new blogs</h2>
-        <h3 className="italic font-tinos text-base">Sign up for our newsletter!</h3>
+        <h2 className="capitalize text-lg text-gray-900 dark:text-gray-100">
+          Be the first to access new blogs
+        </h2>
+        <h3 className="italic font-tinos text-base text-gray-700 dark:text-gray-300">
+          Sign up for our newsletter!
+        </h3>
       </div>
 
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md flex flex-col gap-4 "
+        className="w-full max-w-md flex flex-col gap-4"
       >
-        <label className="flex flex-col items-start gap-1 text-base">
+        <label className="flex flex-col items-start gap-1 text-base text-gray-900 dark:text-gray-200">
           Full Name:
           <input
             type="text"
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            className="w-full rounded-md p-2 border-b-4 border-jadeGreen placeholder-black outline-none "
+            className="w-full rounded-md p-2 border-b-4 border-jadeGreen placeholder-gray-900 dark:placeholder-gray-400 outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             placeholder="Enter your full name"
           />
         </label>
 
-        <label className="flex flex-col items-start gap-1 text-base">
+        <label className="flex flex-col items-start gap-1 text-base text-gray-900 dark:text-gray-200">
           Email:
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full rounded-md p-2 border-b-4 border-jadeGreen placeholder-black outline-none"
+            className="w-full rounded-md p-2 border-b-4 border-jadeGreen placeholder-gray-900 dark:placeholder-gray-400 outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             placeholder="Enter your email"
           />
         </label>
@@ -79,6 +83,20 @@ export const NewsLetter = () => {
           Subscribe
         </button>
       </form>
+
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
     </main>
   );
 };

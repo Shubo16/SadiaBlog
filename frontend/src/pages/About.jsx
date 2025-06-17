@@ -15,13 +15,13 @@ const containerVariants = {
 // Variants for each child (image and paragraphs)
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1} },
+  visible: { opacity: 1, y: 0, transition: { duration: 1 } },
 };
 
 function About() {
   return (
     <motion.section
-      className="min-h-screen w-full bg-navajoWhite flex items-center"
+      className="min-h-screen w-full bg-navajoWhite dark:bg-gray-900 flex items-center"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -41,7 +41,7 @@ function About() {
 
         {/* Text Section */}
         <motion.div
-          className="w-full md:w-1/2 flex flex-col justify-center space-y-6 text-jadeGreen text-[1.05rem] leading-relaxed font-light"
+          className="w-full md:w-1/2 flex flex-col justify-center space-y-6 text-jadeGreen dark:text-green-300 text-[1.05rem] leading-relaxed font-light"
           variants={itemVariants}
         >
           <motion.p variants={itemVariants}>

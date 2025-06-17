@@ -9,7 +9,7 @@ const Blogs = () => {
   const handleBlogCreated = () => {
     setRefresh((prev) => !prev); // Toggle the refresh state
   };  return (
-    <div className="">
+    <div className="dark:bg-darkBackground">
       <BlogsHeader />
       <CreateBlog onBlogCreated={handleBlogCreated}/>
       <BlogComponent toggleRefresh={toggleRefresh} />

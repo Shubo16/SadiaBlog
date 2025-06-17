@@ -54,7 +54,7 @@ const CreateBlog = ({ onBlogCreated }) => {
     formData.append("description", blogData.description);
     formData.append("content", blogData.content);
     if (file) formData.append("image", file);
-  
+
     try {
       const response = await api.post("/api/blog", formData, {
         withCredentials: true,
@@ -62,11 +62,11 @@ const CreateBlog = ({ onBlogCreated }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-  
+
       successFullyCreatedBlog();
       toggleNewBlog();
       if (onBlogCreated) onBlogCreated();
-  
+
       setBlogData({
         title: "",
         category: "",
@@ -100,7 +100,7 @@ const CreateBlog = ({ onBlogCreated }) => {
 
           {/* Desktop Button */}
           <button
-            className="hidden sm:block sm:absolute px-5 py-2.5 rounded-lg text-sm font-medium border-jadeGreen border-2 hover:bg-jadeGreen text-green-700 hover:text-white transition-all duration-300 top-72 right-10 mt-6"
+            className="hidden sm:block sm:absolute px-5 py-2.5 rounded-lg text-sm font-medium border-jadeGreen border-2 hover:bg-jadeGreen text-green-700 hover:text-white transition-all duration-300 top-72 right-10 mt-6 dark:text-green-400 dark:border-green-400 dark:hover:bg-green-600"
             onClick={toggleNewBlog}
           >
             Add New Blog
@@ -126,10 +126,15 @@ const CreateBlog = ({ onBlogCreated }) => {
                   className="fixed inset-0 z-50 flex items-center justify-center"
                 >
                   {/* Scrollable Modal Content */}
-                  <div className="w-11/12 max-w-3xl h-[90vh] overflow-y-auto bg-white shadow-lg rounded-lg p-5">
+                  <div className="w-11/12 max-w-3xl h-[90vh] overflow-y-auto bg-white dark:bg-gray-800 shadow-lg rounded-lg p-5 text-gray-900 dark:text-gray-100">
                     <div className="flex justify-between items-center mb-4">
-                      <h2 className="text-xl font-bold text-center">Create a New Blog</h2>
-                      <motion.button className="text-2xl" onClick={toggleNewBlog}>
+                      <h2 className="text-xl font-bold text-center">
+                        Create a New Blog
+                      </h2>
+                      <motion.button
+                        className="text-2xl text-gray-900 dark:text-gray-100"
+                        onClick={toggleNewBlog}
+                      >
                         &times;
                       </motion.button>
                     </div>
@@ -142,7 +147,10 @@ const CreateBlog = ({ onBlogCreated }) => {
                       </div>
 
                       <div className="mb-4">
-                        <label htmlFor="title" className="block text-sm font-medium">
+                        <label
+                          htmlFor="title"
+                          className="block text-sm font-medium"
+                        >
                           Title
                         </label>
                         <input
@@ -150,16 +158,23 @@ const CreateBlog = ({ onBlogCreated }) => {
                           name="title"
                           value={blogData.title}
                           onChange={handleInputChange}
-                          className="w-full p-2 mt-1 border rounded-md"
+                          className="w-full p-2 mt-1 border rounded-md bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
                           placeholder="Enter blog title"
                         />
                       </div>
 
                       <div className="mb-4">
-                        <label htmlFor="image" className="block text-sm font-medium">
+                        <label
+                          htmlFor="image"
+                          className="block text-sm font-medium"
+                        >
                           Upload Image
                         </label>
-                        <input type="file" onChange={handleChange} className="block" />
+                        <input
+                          type="file"
+                          onChange={handleChange}
+                          className="block text-gray-900 dark:text-gray-100"
+                        />
                         {file && (
                           <img
                             src={URL.createObjectURL(file)}
@@ -170,7 +185,10 @@ const CreateBlog = ({ onBlogCreated }) => {
                       </div>
 
                       <div className="mb-4">
-                        <label htmlFor="category" className="block text-sm font-medium">
+                        <label
+                          htmlFor="category"
+                          className="block text-sm font-medium"
+                        >
                           Category
                         </label>
                         <input
@@ -178,13 +196,16 @@ const CreateBlog = ({ onBlogCreated }) => {
                           name="category"
                           value={blogData.category}
                           onChange={handleInputChange}
-                          className="w-full p-2 mt-1 border rounded-md"
+                          className="w-full p-2 mt-1 border rounded-md bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
                           placeholder="Enter blog category"
                         />
                       </div>
 
                       <div className="mb-4">
-                        <label htmlFor="description" className="block text-sm font-medium">
+                        <label
+                          htmlFor="description"
+                          className="block text-sm font-medium"
+                        >
                           Description
                         </label>
                         <input
@@ -192,13 +213,16 @@ const CreateBlog = ({ onBlogCreated }) => {
                           name="description"
                           value={blogData.description}
                           onChange={handleInputChange}
-                          className="w-full p-2 mt-1 border rounded-md"
+                          className="w-full p-2 mt-1 border rounded-md bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
                           placeholder="Enter blog description"
                         />
                       </div>
 
                       <div className="mb-4">
-                        <label htmlFor="content" className="block text-sm font-medium">
+                        <label
+                          htmlFor="content"
+                          className="block text-sm font-medium"
+                        >
                           Content
                         </label>
                         <textarea
@@ -206,14 +230,14 @@ const CreateBlog = ({ onBlogCreated }) => {
                           name="content"
                           value={blogData.content}
                           onChange={handleInputChange}
-                          className="w-full p-2 mt-1 border rounded-md h-48"
+                          className="w-full p-2 mt-1 border rounded-md h-48 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
                           placeholder="Enter blog content"
                         ></textarea>
                       </div>
 
                       <button
                         type="submit"
-                        className="w-full p-2 bg-jadeGreen text-white rounded-md"
+                        className="w-full p-2 bg-jadeGreen text-white rounded-md disabled:opacity-60"
                         disabled={isPending}
                       >
                         {isPending ? "Submitting..." : "Create Blog"}

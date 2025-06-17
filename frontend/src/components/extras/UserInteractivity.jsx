@@ -3,7 +3,7 @@ import { FaRegComment, FaHeart, FaRegHeart } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import api from "../../services/backendApi";
 
-export default function UserInteractivity({id}) {
+export default function UserInteractivity({ id }) {
   const { slug } = useParams();
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
@@ -11,10 +11,12 @@ export default function UserInteractivity({id}) {
   useEffect(() => {
     const fetchLikes = async () => {
       try {
-        const response = await api.get(
-          `/api/likes/${slug}`
-        );
+        const response = await api.get(`/api/likes/${slug}`);
         setLikeCount(response.data.count);
+        // If your API returns whether the current user liked the post:
+        if (response.data.userHasLiked !== undefined) {
+          setIsLiked(response.data.userHasLiked);
+        }
       } catch (error) {
         console.error("Failed to fetch likes", error);
       }
@@ -26,9 +28,7 @@ export default function UserInteractivity({id}) {
   const handleLike = async () => {
     try {
       console.log("liking blog with slug:", slug);
-      const response = await api.post(
-        `/api/likes/${encodeURIComponent(slug)}`
-      );
+      const response = await api.post(`/api/likes/${encodeURIComponent(slug)}`);
       setLikeCount(response.data.count);
       setIsLiked(true);
     } catch (error) {
@@ -38,9 +38,7 @@ export default function UserInteractivity({id}) {
 
   const handleUnlike = async () => {
     try {
-      const response = await api.delete(
-        `/api/likes/${encodeURIComponent(slug)}`
-      );
+      const response = await api.delete(`/api/likes/${encodeURIComponent(slug)}`);
       setLikeCount(response.data.count);
       setIsLiked(false);
     } catch (error) {
@@ -49,32 +47,35 @@ export default function UserInteractivity({id}) {
   };
 
   return (
-    <div className="flex w-full justify-between border-y-2 border-slate-900 py-2 my-10 items-center font-mono">
+    <div className="flex w-full justify-between border-y-2 border-slate-900 dark:border-gray-300 py-2 my-10 items-center font-mono transition-colors duration-300">
       <section className="flex gap-3 items-center">
         <button
-        key={isLiked.id}
           onClick={isLiked ? handleUnlike : handleLike}
-          className="rounded-full border-2 border-jadeGreen p-3 outline-none"
+          aria-pressed={isLiked}
+          aria-label={isLiked ? "Unlike this blog" : "Like this blog"}
+          className="rounded-full border-2 border-jadeGreen p-3 outline-none transition-colors duration-300 hover:bg-jadeGreen hover:text-white"
         >
           {isLiked ? (
-            <FaHeart className="md:h-8 md:w-8 text-red-500 transition duration-300 ease-in-out" />
+            <FaHeart className="md:h-8 md:w-8 text-red-500" />
           ) : (
-            <FaRegHeart className="md:h-8 md:w-8 text-black transition duration-300 ease-in-out" />
+            <FaRegHeart className="md:h-8 md:w-8 text-black dark:text-white" />
           )}
         </button>
         <span>{likeCount} likes</span>
 
         <a
           href="#comments"
-          className="rounded-full border-2 border-jadeGreen p-3 outline-none"
+          aria-label="Go to comments section"
+          className="rounded-full border-2 border-jadeGreen p-3 outline-none transition-colors duration-300 hover:bg-jadeGreen hover:text-white"
         >
-          <FaRegComment className="md:h-8 md:w-8" />
+          <FaRegComment className="md:h-8 md:w-8 text-black dark:text-white" />
         </a>
       </section>
       <section>
         <button
           onClick={() => navigator.clipboard.writeText(window.location.href)}
-          className="rounded-full border-2 border-jadeGreen p-3 outline-none uppercase font-poppins"
+          className="rounded-full border-2 border-jadeGreen p-3 outline-none uppercase font-poppins transition-colors duration-300 hover:bg-jadeGreen hover:text-white"
+          aria-label="Share this blog"
         >
           Share
         </button>

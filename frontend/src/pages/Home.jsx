@@ -5,12 +5,12 @@ import { NewsLetter } from "../components/homePage/Newsletter";
 
 function Home() {
   return (
-    <>
+    <div className="dark:bg-darkNavyBlue">
     <LandingBlog/>
       <HomeBlog />
       <Charity/>
       <NewsLetter />
-    </>
+    </div>
   );
 }
 export default Home;

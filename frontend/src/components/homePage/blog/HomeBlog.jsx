@@ -5,21 +5,18 @@ import api from "../../../services/backendApi";
 
 function HomeBlog() {
   const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getBlogs = async () => {
       try {
         const response = await api.get("/api/blog");
         const data = response.data;
-
-        // Only keep the latest 3 blogs
         setBlogs(data.slice(0, 3));
-        console.log("Fetched blogs:", data.slice(0, 3));
       } catch (err) {
-        setError("Error fetching blogs. Please try again later.");
-        console.error("Error fetching blogs:", err);
+        setError("Failed to load blogs. Please try again later.");
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -29,30 +26,30 @@ function HomeBlog() {
   }, []);
 
   return (
-    <section className="p-23 my-20">
-      <Link to='/blogs'>
-        <h1 className="text-3xl font-bold text-center mb-8 font-poppins border-b-4 pb-2 border-b-jadeGreen hover:text-red-700 hover:underline-offset-0">
-          Latest Blog Posts
-        </h1>
-      </Link>
+    <section className="py-16 px-4 md:px-12 bg-white dark:bg-darkBackground transition-colors duration-300">
+      <div className="max-w-7xl mx-auto">
+        <Link to="/blogs">
+          <h1 className="text-4xl font-tinos text-center mb-12 text-gray-900 dark:text-darkText hover:text-jadeGreen dark:hover:text-jadeGreen transition-colors duration-200 underline-offset-4 hover:underline decoration-jadeGreen">
+            Latest Blog Posts
+          </h1>
+        </Link>
 
-      {loading ? (
-        <div className="text-center">Loading blogs...</div>
-      ) : error ? (
-        <div className="text-center text-red-600">{error}</div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-20">
-          {blogs.length === 0 ? (
-            <div className="text-center col-span-full">
-              No blog posts available.
-            </div>
-          ) : (
-            blogs.map((blog) => (
-              <BlogCard key={blog.id} {...blog} />
-            ))
-          )}
-        </div>
-      )}
+        {loading ? (
+          <p className="text-center text-gray-500 dark:text-darkText">Loading blogs...</p>
+        ) : error ? (
+          <p className="text-center text-red-600 dark:text-red-400">{error}</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {blogs.length === 0 ? (
+              <p className="col-span-full text-center text-gray-500 dark:text-darkMutedText">
+                No blog posts available.
+              </p>
+            ) : (
+              blogs.map((blog) => <BlogCard key={blog.id} {...blog} />)
+            )}
+          </div>
+        )}
+      </div>
     </section>
   );
 }

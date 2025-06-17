@@ -89,10 +89,10 @@ function MobileHeader() {
   };
 
   return (
-    <header className="h-[10svh] w-full flex items-center justify-between px-5 z-50 sticky border-b-4 border-black dark:border-jadeGreen mb-0 bg-slate-50 dark:bg-darkNavyBlue">
+    <header className="h-[10svh] w-full flex items-center justify-between px-5 z-50 sticky border-b-4 border-black mb-0 bg-slate-50 dark:bg-darkBackground dark:border-darkBorder">
       <ul className="flex items-center">
         <Link to="/">
-          <h1 className="text-black dark:text-darkTextWhite text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold uppercase font-poppins hover:text-jadeGreen ">
+          <h1 className="text-black  dark:text-darkText text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold uppercase font-poppins hover:text-jadeGreen ">
             Sadia's Blog
           </h1>
         </Link>
@@ -101,7 +101,7 @@ function MobileHeader() {
           {loading ? (
             <li>Loading...</li>
           ) : user ? (
-            <li className="text-neutral-950 dark:text-darkTextWhite hidden sm:inline font-poppins">
+            <li className="text-neutral-950 dark:text-darkText hidden sm:inline font-poppins">
               Welcome back, {user.username}
             </li>
           ) : (
@@ -116,7 +116,7 @@ function MobileHeader() {
         <motion.button
           animate={mobileNav ? "open" : "closed"}
           onClick={() => toggleMobileNav()}
-          className="flex flex-col space-y-2"
+          className="flex flex-col space-y-2 "
         >
           <motion.span
             variants={{
@@ -130,7 +130,7 @@ function MobileHeader() {
               open: { rotate: 45, y: 12, backgroundColor: "#00A86B" },
             }}
             whileHover={{ backgroundColor: "jadeGreen" }}
-            className="w-8 h-1 rounded-xl block z-50 hover:bg-jadeGree"
+            className="w-8 h-1 rounded-xl block z-50 "
           />
           <motion.span
             variants={{
@@ -161,7 +161,7 @@ function MobileHeader() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed left-0 top-[7.5rem] w-full bg-black h-full origin-top flex flex-col p-10 z-0"
+            className="fixed left-0 top-[7.5rem] w-full bg-slate-50 dark:bg-darkBackground h-full origin-top flex flex-col p-10 z-0"
           >
             <motion.div
               variants={containerVars}
@@ -209,7 +209,7 @@ const MobileNavLink = ({ title, href, toggleMobileNav, onClick }) => {
   return (
     <motion.div
       variants={linkVar}
-      className="text-5xl uppercase text-jadeGreen scroll-smooth hover:text-lm-dark-green hover:scale-150"
+      className="text-5xl uppercase text-jadeGreen dark:text-darkText scroll-smooth hover:text-lm-dark-green hover:scale-150"
     >
       <Link
         to={href}

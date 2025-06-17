@@ -6,4 +6,10 @@
 html {
     font-family: "Tinos", "serif";
     scroll-behavior: smooth;
+    background-color: "#0F172A"
 }
+
+
+html.dark body {
+    background-color: #0F172A; /* Dark mode base (your darkNavyBlue) */
+  }

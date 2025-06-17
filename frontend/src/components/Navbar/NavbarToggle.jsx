@@ -48,7 +48,7 @@ const NavbarToggle = ({ isToggled }) => {
       variants={navList}
     >
       {items.map((item) => (
-        <motion.li className="nav-item" variants={navItem} key={item}>
+        <motion.li className="nav-item " variants={navItem} key={item}>
           <p>{item}</p>
         </motion.li>
       ))}

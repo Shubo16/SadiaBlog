@@ -8,17 +8,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#00040f",
+        primary: "#111111", // softer black
         secondary: "#00f6ff",
         dimWhite: "rgba(255, 255, 255, 0.7)",
         dimBlue: "rgba(9, 151, 124, 0.1)",
-        jadeGreen:"#00A86B",
-        navajoWhite:"#FFF5EE",
-        darkNavyBlue: "#0F172A",
-        darkTextWhite:"#F8FAFC"
-        
-
+        jadeGreen: "#00A86B",
+        navajoWhite: "#FFF5EE",
+    
+        // 🆕 Updated dark mode colors
+        darkBackground: "#1A1A2E",       // Main background
+        darkCard: "#1F2937",             // Card / section background
+        darkBorder: "#374151",           // Borders / outlines
+        darkText: "#E5E7EB",             // Main text
+        darkMutedText: "#9CA3AF"         // Secondary text
       },
+    },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
         tinos:["Tinos", "serif"]
@@ -32,6 +36,5 @@ export default {
       lg: "1200px",
       xl: "1400px",
     },
-  },
   plugins: [],
 }
