@@ -97,7 +97,7 @@ function AnimatedRoutes() {
 function PageWrapper({ children }) {
   return (
     <motion.div
-      className="flex flex-col min-h-full"
+      className="flex flex-col min-h-full dark:bg-darkBackground"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
